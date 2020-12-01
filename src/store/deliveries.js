@@ -59,7 +59,7 @@ export const {
 } = slice.actions;
 
 export default slice.reducer;
-
+``;
 const url = '/delivery';
 
 export const loadDeliveries = () => (dispatch, getState) => {

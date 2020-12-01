@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Card,
   CardText,
@@ -21,7 +23,7 @@ const MenuItem = props => {
         <CardBody>
           <CardText>
             Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            bulk of the card&apos;s content.
           </CardText>
           <CardLink href="#">Card Link</CardLink>
           <CardLink href="#">Another Link</CardLink>
@@ -29,6 +31,10 @@ const MenuItem = props => {
       </Card>
     </div>
   );
+};
+
+MenuItem.propTypes = {
+  item: PropTypes.object,
 };
 
 export default MenuItem;

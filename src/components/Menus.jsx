@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { loadMenus } from '../store/menus';
 import { connect } from 'react-redux';
 
@@ -27,5 +29,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadMenus: () => dispatch(loadMenus()),
 });
+
+Menus.propTypes = {
+  menus: PropTypes.array,
+  loadMenus: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menus);

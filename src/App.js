@@ -1,4 +1,7 @@
 import './App.css';
+
+import React from 'react';
+
 import DeliveriesList from './components/DeliveriesList';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
