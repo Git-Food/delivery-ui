@@ -10,7 +10,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 
 // import Contents from './Contents.jsx';
-import Menus from './Menus';
+import Restaurants from './Restaurants';
 import DeliveriesList from './DeliveriesList';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -70,9 +70,9 @@ export default class Page extends React.Component {
         <Container fluid>
           {/* TODO (shh): Create Contents component */}
           {/* <Contents /> */}
-          {/* (shh): DeliveriesList and Menus used for time being */}
+          {/* (shh): DeliveriesList and Restaurants used for time being */}
           <DeliveriesList />
-          <Menus />
+          <Restaurants />
         </Container>
         <Footer />
       </div>

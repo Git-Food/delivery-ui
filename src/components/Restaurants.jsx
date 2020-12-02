@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
 import { loadRestaurants } from '../store/restaurants';
 import { connect } from 'react-redux';
@@ -14,14 +14,14 @@ class Restaurants extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <>
         <h1>Placeholder for Restaurants View</h1>
         <Row>
           {this.props.restaurants.map(restaurant => (
             <Restaurant key={restaurant.id} restaurant={restaurant} />
           ))}
         </Row>
-      </Container>
+      </>
     );
   }
 }
