@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import deliveryReducer from './deliveries';
-import menuReducer from './menus';
+import restaurantReducer from './restaurants';
 
 export default combineReducers({
   deliveries: deliveryReducer,
-  menus: menuReducer,
+  restaurants: restaurantReducer,
 });
