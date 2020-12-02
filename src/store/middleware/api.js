@@ -9,7 +9,7 @@ const api = ({ dispatch }) => next => async action => {
   try {
     const response = await axios.request({
       // baseURL: "http://localhost:5000",
-      baseUrl: 'https://git-food.herokuapp.com',
+      baseURL: 'https://git-food.herokuapp.com',
       url,
       method,
       data,
