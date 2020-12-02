@@ -2,19 +2,20 @@ import './App.css';
 
 import React from 'react';
 
-import DeliveriesList from './components/DeliveriesList';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-import Menus from './components/Menus';
+import Page from './components/Page';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const store = configureStore();
 
 function App() {
   return (
-    <Provider store={store}>
-      <DeliveriesList />
-      <Menus />
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <Page />
+      </Provider>
+    </Router>
   );
 }
 
