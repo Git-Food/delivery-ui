@@ -1,33 +1,28 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Card,
-  CardText,
-  CardBody,
-  CardLink,
-  CardTitle,
-  CardSubtitle,
-} from 'reactstrap';
+import { Card, Button } from 'react-bootstrap';
 
 const MenuItem = props => {
   return (
     <div>
-      <Card body inverse color="info">
-        <CardBody>
-          <CardTitle tag="h5">{props.item.name}</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">
-            {props.item.description}
-          </CardSubtitle>
-        </CardBody>
-        <CardBody>
-          <CardText>
+      <Card style={{ width: '18rem' }}>
+        <Card.Img
+          variant="top"
+          src={`https://picsum.photos/id/${Math.floor(Math.random() * 99)}/200`}
+        />
+        <Card.Body>
+          <Card.Title>Sample Menu Title</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            Sample Menu Subtitle
+          </Card.Subtitle>
+          <Card.Text>
             Some quick example text to build on the card title and make up the
-            bulk of the card&apos;s content.
-          </CardText>
-          <CardLink href="#">Card Link</CardLink>
-          <CardLink href="#">Another Link</CardLink>
-        </CardBody>
+            bulk of the card's content.
+          </Card.Text>
+          <Button variant="primary">Go somewhere</Button>
+        </Card.Body>
       </Card>
     </div>
   );
