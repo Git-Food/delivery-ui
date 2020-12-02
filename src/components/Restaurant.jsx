@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 import { Card, Button } from 'react-bootstrap';
 
-const MenuItem = props => {
-  const { name, description } = props.item;
+const Restaurant = props => {
+  const { name, cuisineType, location } = props.restaurant;
+  const { streetAddress, houseNumber, city, state, zipCode } = location;
   return (
     <div>
       <Card style={{ width: '18rem' }}>
@@ -16,21 +17,22 @@ const MenuItem = props => {
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {description}
+            {cuisineType}
           </Card.Subtitle>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            {houseNumber} {streetAddress}
+            <br />
+            {city}, {state} {zipCode}
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <Button variant="primary">View Menu</Button>
         </Card.Body>
       </Card>
     </div>
   );
 };
 
-MenuItem.propTypes = {
-  item: PropTypes.object,
+Restaurant.propTypes = {
+  restaurant: PropTypes.object,
 };
 
-export default MenuItem;
+export default Restaurant;
