@@ -9,9 +9,7 @@ import {
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-// import Contents from './Contents.jsx';
-import Restaurants from './Restaurants';
-import DeliveriesList from './DeliveriesList';
+import Contents from './Contents.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +17,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 const NavBar = () => {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
-      <Navbar.Brand href="#home">Git-Food</Navbar.Brand>
+      <Navbar.Brand>Git-Food</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -37,7 +35,7 @@ const NavBar = () => {
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-light">Search</Button>
         </Form>
-        <Nav pullRight>
+        <Nav>
           {/* TODO (shh): Create ShoppingCart Modal NOT Route */}
           <LinkContainer exact to="/shoppingcart">
             <Nav.Link>
@@ -68,11 +66,7 @@ export default class Page extends React.Component {
       <div>
         <NavBar />
         <Container fluid>
-          {/* TODO (shh): Create Contents component */}
-          {/* <Contents /> */}
-          {/* (shh): DeliveriesList and Restaurants used for time being */}
-          <DeliveriesList />
-          <Restaurants />
+          <Contents />
         </Container>
         <Footer />
       </div>
