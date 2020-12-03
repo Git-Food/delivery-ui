@@ -7,12 +7,17 @@ import { Card, Button } from 'react-bootstrap';
 
 import { useHistory } from 'react-router-dom';
 
-function ViewMenuButton(props) {
-  console.log(props);
+/* TODO: (shh): determine how to best redirect to new Menu View
+   After hitting the View Menu button.
+   1) Pass current menu as props somehow?
+   2) Use redux for accessing state?
+ */
+const ViewMenuButton = props => {
+  const { menu } = props;
   let history = useHistory();
 
   function handleClick() {
-    history.push(`/restaruants/${props.id}`);
+    history.push(`/restaurants/${menu.id}`);
   }
 
   return (
@@ -20,7 +25,7 @@ function ViewMenuButton(props) {
       View Menu
     </Button>
   );
-}
+};
 
 const Restaurant = props => {
   const { name, cuisineType, location, menu } = props.restaurant;
