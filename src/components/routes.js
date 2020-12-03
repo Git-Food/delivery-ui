@@ -4,7 +4,7 @@ import NotFound from './NotFound.jsx';
 
 const routes = [
   { path: '/restaurants', component: Restaurants },
-  { path: '/restaurants/:id', component: Menu },
+  { path: '/menu/:id', component: Menu },
   { path: '*', component: NotFound },
 ];
 
