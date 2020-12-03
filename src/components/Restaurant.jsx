@@ -1,11 +1,29 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, Button } from 'react-bootstrap';
 
+import { useHistory } from 'react-router-dom';
+
+function ViewMenuButton(props) {
+  console.log(props);
+  let history = useHistory();
+
+  function handleClick() {
+    history.push(`/restaruants/${props.id}`);
+  }
+
+  return (
+    <Button variant="primary" onClick={handleClick}>
+      View Menu
+    </Button>
+  );
+}
+
 const Restaurant = props => {
-  const { name, cuisineType, location } = props.restaurant;
+  const { name, cuisineType, location, menu } = props.restaurant;
   const { streetAddress, houseNumber, city, state, zipCode } = location;
   return (
     <div>
@@ -24,7 +42,8 @@ const Restaurant = props => {
             <br />
             {city}, {state} {zipCode}
           </Card.Text>
-          <Button variant="primary">View Menu</Button>
+          {/* <Button variant="primary">View Menu</Button> */}
+          <ViewMenuButton menu={menu}></ViewMenuButton>
         </Card.Body>
       </Card>
     </div>
