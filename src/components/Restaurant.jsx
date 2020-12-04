@@ -29,11 +29,11 @@ import { Card, Button } from 'react-bootstrap';
 // };
 
 const Restaurant = props => {
-  const { name, cuisineType, location, menu } = props.restaurant;
+  const { name, cuisineType, location, menuId } = props.restaurant;
   const { streetAddress, houseNumber, city, state, zipCode } = location;
   return (
     <div>
-      <Link to={`/menu/${menu.id}`}>
+      <Link to={`/menu/${menuId}`}>
         <Card style={{ width: '18rem' }}>
           <Card.Img
             variant="top"
