@@ -1,5 +1,9 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { loadShoppingCart } from '../store/shoppingCart';
+import { connect } from 'react-redux';
+import OrderItem from './OrderItem';
+
 import {
   NavItem,
   Modal,
@@ -11,12 +15,14 @@ import {
   ButtonToolbar,
   Tooltip,
   OverlayTrigger,
+  Row,
+  Container,
 } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-class ShoppingCart extends React.Component {
+class ShoppingCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +31,10 @@ class ShoppingCart extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.loadShoppingCart();
   }
 
   showModal() {
@@ -84,6 +94,11 @@ class ShoppingCart extends React.Component {
                 <FormControl name="LinkedIn" />
               </FormGroup>
             </Form> */}
+            {Object.entries(this.props.cart.items).map(([k, value]) => (
+              <Row key="">
+                <OrderItem key={k} orderItem={value} />
+              </Row>
+            ))}
           </Modal.Body>
           <Modal.Footer>
             <ButtonToolbar>
@@ -104,4 +119,17 @@ class ShoppingCart extends React.Component {
   }
 }
 
-export default withRouter(ShoppingCart);
+const mapStateToProps = state => ({
+  cart: state.entities.cart,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadShoppingCart: () => dispatch(loadShoppingCart()),
+});
+
+ShoppingCart.propTypes = {
+  cart: PropTypes.object,
+  loadShoppingCart: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);

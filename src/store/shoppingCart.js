@@ -8,7 +8,7 @@ const slice = createSlice({
   initialState: {
     cartId: null,
     customerId: null,
-    items: new Map(),
+    items: {},
     quantity: 0,
     price: 0,
     loading: false,
@@ -27,64 +27,58 @@ const slice = createSlice({
       var dollars = parseInt(action.payload.totalPrice / 100);
       var cents = (action.payload.totalPrice % 100) / 100;
       cart.price = dollars + cents;
-      menus.list = action.payload;
-      menus.loading = false;
-      menus.lastFetch = Date.now();
+      cart.loading = false;
+      cart.lastFetch = Date.now();
     },
-    menusRequested: menus => {
-      menus.loading = true;
+    cartRequested: cart => {
+      cart.loading = true;
     },
-    menusRequestFailed: menus => {
-      menus.loading = false;
-    },
-    menuSet: (menus, action) => {
-      const index = menus.list.findIndex(menu => menu.id === action.payload.id);
-      menus.list[index] = action.payload;
+    cartRequestFailed: cart => {
+      cart.loading = false;
     },
   },
 });
 
 const {
-  menuAdded,
-  menusReceived,
-  menusRequested,
-  menusRequestFailed,
-  menuSet,
+  itemAdded,
+  cartReceived,
+  cartRequested,
+  cartRequestFailed,
 } = slice.actions;
 
 export default slice.reducer;
 
-const url = '/menu';
+const url = '/shoppingcart/5fc6e9796ba40e2416da4ce1';
 
-export const loadMenus = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.menus;
+export const loadShoppingCart = () => (dispatch, getState) => {
+  const { lastFetch } = getState().entities.cart;
   if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
   return dispatch(
     apiCallBegan({
       url,
-      onStart: menusRequested.type,
-      onSuccess: menusReceived.type,
-      onError: menusRequestFailed.type,
+      onStart: cartRequested.type,
+      onSuccess: cartReceived.type,
+      onError: cartRequestFailed.type,
     })
   );
 };
 
-export const setMenu = menu =>
-  apiCallBegan({
-    url,
-    method: 'put',
-    data: menu,
-    onStart: menusRequested.type,
-    onSuccess: menuSet.type,
-    onError: menusRequestFailed.type,
-  });
+// export const setMenu = menu =>
+//   apiCallBegan({
+//     url,
+//     method: 'put',
+//     data: menu,
+//     onStart: menusRequested.type,
+//     onSuccess: menuSet.type,
+//     onError: menusRequestFailed.type,
+//   });
 
-export const addMenu = menu =>
-  apiCallBegan({
-    url,
-    method: 'post',
-    data: menu,
-    onStart: menusRequested.type,
-    onSuccess: menuAdded.type,
-    onError: menusRequestFailed.type,
-  });
+// export const addMenu = menu =>
+//   apiCallBegan({
+//     url,
+//     method: 'post',
+//     data: menu,
+//     onStart: menusRequested.type,
+//     onSuccess: menuAdded.type,
+//     onError: menusRequestFailed.type,
+//   });
