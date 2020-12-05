@@ -37,15 +37,9 @@ const NavBar = () => {
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-light">Search</Button>
-          <ShoppingCart />
         </Form>
-        <Nav pullRight>
-          {/* TODO (shh): Create ShoppingCart Modal NOT Route */}
-          {/* <LinkContainer exact to="/shoppingcart">
-            <Nav.Link>
-              {<FontAwesomeIcon icon={faShoppingCart} size="2x" />}
-            </Nav.Link>
-          </LinkContainer> */}
+        <Nav className="ml-auto">
+          <ShoppingCart />
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -56,6 +56,7 @@ const {
 
 export default slice.reducer;
 
+// TODO: (pcg) replace shoppingCart id with user id
 const url = '/shoppingcart/5fca9e4d7c59140783201528';
 
 export const loadShoppingCart = () => (dispatch, getState) => {

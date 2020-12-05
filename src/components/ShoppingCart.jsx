@@ -70,6 +70,7 @@ class ShoppingCart extends Component {
             {Object.entries(this.props.shoppingCart.items).map(([k, value]) => (
               <Row key="">
                 {/* Pass props to child component, userid is harcoded for now */}
+                {/* TODO: (pcg) replace harcoded user id */}
                 <OrderItem
                   key={k}
                   orderItem={value}
