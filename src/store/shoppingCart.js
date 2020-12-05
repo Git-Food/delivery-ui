@@ -36,6 +36,15 @@ const slice = createSlice({
     cartRequestFailed: cart => {
       cart.loading = false;
     },
+    itemIncremented: (cart, action) => {
+      cart.items = action.payload.orderItems;
+      cart.quantity = action.payload.totalQuantity;
+      var dollars = parseInt(action.payload.totalPrice / 100);
+      var cents = (action.payload.totalPrice % 100) / 100;
+      cart.price = dollars + cents;
+      cart.loading = false;
+      cart.lastFetch = Date.now();
+    },
   },
 });
 
@@ -44,11 +53,12 @@ const {
   cartReceived,
   cartRequested,
   cartRequestFailed,
+  itemIncremented,
 } = slice.actions;
 
 export default slice.reducer;
 
-const url = '/shoppingcart/5fc6e9796ba40e2416da4ce1';
+const url = '/shoppingcart/5fca9e4d7c59140783201528';
 
 export const loadShoppingCart = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.cart;
@@ -58,6 +68,24 @@ export const loadShoppingCart = () => (dispatch, getState) => {
       url,
       onStart: cartRequested.type,
       onSuccess: cartReceived.type,
+      onError: cartRequestFailed.type,
+    })
+  );
+};
+
+export const incrementOrderItem = (orderitem, userid) => (
+  dispatch,
+  getState
+) => {
+  // const { lastFetch } = getState().entities.cart;
+  // if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
+  return dispatch(
+    apiCallBegan({
+      url: '/incrementorderitem',
+      method: 'put',
+      params: { orderitem, userid },
+      onStart: cartRequested.type,
+      onSuccess: itemIncremented.type,
       onError: cartRequestFailed.type,
     })
   );

@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { loadShoppingCart } from '../store/shoppingCart';
+import { loadShoppingCart, incrementOrderItem } from '../store/shoppingCart';
 import { connect } from 'react-redux';
 import OrderItem from './OrderItem';
 
 import {
   NavItem,
   Modal,
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel,
   Button,
   ButtonToolbar,
   Tooltip,
   OverlayTrigger,
   Row,
-  Container,
 } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -31,11 +28,16 @@ class ShoppingCart extends Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleIncrease = this.handleIncrease.bind(this);
   }
 
   componentDidMount() {
     this.props.loadShoppingCart();
   }
+
+  // handleIncrease(item, user) {
+  //   this.props.incrementOrderItem(item, user);
+  // }
 
   showModal() {
     this.setState({ showing: true });
@@ -68,35 +70,23 @@ class ShoppingCart extends Component {
             <Modal.Title>Shopping Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {/* <Form name="contactAdd">
-              <FormGroup>
-                <ControlLabel>Name</ControlLabel>
-                <FormControl name="name" autoFocus />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Email*</ControlLabel>
-                <FormControl name="email" />
-              </FormGroup>
-              <FormGroup validationState={invalidFields.phone ? 'error' : null}>
-                <ControlLabel>Phone Number*</ControlLabel>
-                <FormControl
-                componentClass={PhoneInput}
-                international
-                defaultCountry="US"
-                name="phone"
-                // value={phone}
-                onChange={this.onPhoneChange}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>LinkedIn*</ControlLabel>
-                <FormControl name="LinkedIn" />
-              </FormGroup>
-            </Form> */}
             {Object.entries(this.props.cart.items).map(([k, value]) => (
               <Row key="">
                 <OrderItem key={k} orderItem={value} />
+                <Button variant="link">
+                  <FontAwesomeIcon icon={faMinusCircle} size="1x" />
+                </Button>
+                {value.quantity}
+                <Button
+                  variant="link"
+                  onClick={() =>
+                    this.props.incrementOrderItem(
+                      value,
+                      '5fca9e4d7c59140783201529'
+                    )
+                  }>
+                  <FontAwesomeIcon icon={faPlusCircle} size="1x" />
+                </Button>
               </Row>
             ))}
           </Modal.Body>
@@ -125,11 +115,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadShoppingCart: () => dispatch(loadShoppingCart()),
+  incrementOrderItem: (orderItem, userId) =>
+    dispatch(incrementOrderItem(orderItem, userId)),
 });
 
 ShoppingCart.propTypes = {
   cart: PropTypes.object,
   loadShoppingCart: PropTypes.func,
+  incrementOrderItem: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
