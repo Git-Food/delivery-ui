@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Table, Image } from 'react-bootstrap';
+import { Button, Table, Image } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const OrderItem = props => {
   const { id, businessId, menuItem, quantity, specialNote } = props.orderItem;
@@ -21,16 +24,25 @@ const OrderItem = props => {
             <td>
               {menuItem.name}
               <br />
-              {/* Quantity : */}
-              {/* <Button variant="link">
+              Quantity :
+              <Button
+                variant="link"
+                onClick={() =>
+                  props.onDecrement(props.orderItem, props.userid)
+                }>
                 <FontAwesomeIcon icon={faMinusCircle} size="1x" />
               </Button>
               {quantity}
-              <Button variant="link" onClick={handleIncrease}>
+              {/** Takes the onClick from the ShoppingCart component as props */}
+              <Button
+                variant="link"
+                onClick={() =>
+                  props.onIncrement(props.orderItem, props.userid)
+                }>
                 <FontAwesomeIcon icon={faPlusCircle} size="1x" />
-              </Button> */}
+              </Button>
               <br />
-              Price : {menuItem.price}
+              Price: {'$' + menuItem.price * quantity}
             </td>
           </tr>
         </tbody>
@@ -41,6 +53,9 @@ const OrderItem = props => {
 
 OrderItem.propTypes = {
   orderItem: PropTypes.object,
+  userid: PropTypes.string,
+  onDecrement: PropTypes.func,
+  onIncrement: PropTypes.func,
 };
 
 export default OrderItem;

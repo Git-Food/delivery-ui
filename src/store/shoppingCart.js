@@ -36,7 +36,7 @@ const slice = createSlice({
     cartRequestFailed: cart => {
       cart.loading = false;
     },
-    itemIncremented: (cart, action) => {
+    itemQuantityChanged: (cart, action) => {
       cart.items = action.payload.orderItems;
       cart.quantity = action.payload.totalQuantity;
       var dollars = parseInt(action.payload.totalPrice / 100);
@@ -53,7 +53,7 @@ const {
   cartReceived,
   cartRequested,
   cartRequestFailed,
-  itemIncremented,
+  itemQuantityChanged,
 } = slice.actions;
 
 export default slice.reducer;
@@ -77,20 +77,33 @@ export const incrementOrderItem = (orderitem, userid) => (
   dispatch,
   getState
 ) => {
-  // const { lastFetch } = getState().entities.cart;
-  // if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
   return dispatch(
     apiCallBegan({
       url: '/incrementorderitem',
       method: 'put',
       params: { orderitem, userid },
       onStart: cartRequested.type,
-      onSuccess: itemIncremented.type,
+      onSuccess: itemQuantityChanged.type,
       onError: cartRequestFailed.type,
     })
   );
 };
 
+export const decrementOrderItem = (orderitem, userid) => (
+  dispatch,
+  getState
+) => {
+  return dispatch(
+    apiCallBegan({
+      url: '/decrementorderitem',
+      method: 'put',
+      params: { orderitem, userid },
+      onStart: cartRequested.type,
+      onSuccess: itemQuantityChanged.type,
+      onError: cartRequestFailed.type,
+    })
+  );
+};
 // export const setMenu = menu =>
 //   apiCallBegan({
 //     url,
