@@ -42,7 +42,10 @@ const OrderItem = props => {
                 <FontAwesomeIcon icon={faPlusCircle} size="1x" />
               </Button>
               <br />
-              Price: {'$' + menuItem.price * quantity}
+              Unit price: {'$' + (menuItem.price / 100).toFixed(2)}
+              <br />
+              Order item total:{}
+              {'$' + ((menuItem.price / 100) * quantity).toFixed(2)}
             </td>
           </tr>
         </tbody>

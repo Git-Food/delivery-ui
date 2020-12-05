@@ -67,7 +67,7 @@ class ShoppingCart extends Component {
             <Modal.Title>Shopping Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {Object.entries(this.props.cart.items).map(([k, value]) => (
+            {Object.entries(this.props.shoppingCart.items).map(([k, value]) => (
               <Row key="">
                 {/* Pass props to child component, userid is harcoded for now */}
                 <OrderItem
@@ -81,6 +81,9 @@ class ShoppingCart extends Component {
             ))}
           </Modal.Body>
           <Modal.Footer>
+            <Row key="">
+              Total Price: ${this.props.shoppingCart.price.toFixed(2)}
+            </Row>
             <ButtonToolbar>
               <Button variant="outline-dark" onClick={this.handleSubmit}>
                 Checkout
@@ -94,7 +97,7 @@ class ShoppingCart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.entities.cart,
+  shoppingCart: state.entities.shoppingCart,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,7 +109,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ShoppingCart.propTypes = {
-  cart: PropTypes.object,
+  shoppingCart: PropTypes.object,
   loadShoppingCart: PropTypes.func,
   incrementOrderItem: PropTypes.func,
   decrementOrderItem: PropTypes.func,

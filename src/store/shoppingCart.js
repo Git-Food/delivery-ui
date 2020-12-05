@@ -4,9 +4,9 @@ import { apiCallBegan } from './api';
 import moment from 'moment';
 
 const slice = createSlice({
-  name: 'cart',
+  name: 'shoppingCart',
   initialState: {
-    cartId: null,
+    id: null,
     customerId: null,
     items: {},
     quantity: 0,
@@ -15,44 +15,42 @@ const slice = createSlice({
     lastFetch: null,
   },
   reducers: {
-    itemAdded: (cart, action) => {
+    itemAdded: (shoppingCart, action) => {
       const { item } = action.payload;
-      cart.items.set(item.id, item);
+      shoppingCart.items.set(item.id, item);
     },
-    cartReceived: (cart, action) => {
-      cart.cartId = action.payload.id;
-      cart.customerId = action.payload.customerId;
-      cart.items = action.payload.orderItems;
-      cart.quantity = action.payload.totalQuantity;
-      var dollars = parseInt(action.payload.totalPrice / 100);
-      var cents = (action.payload.totalPrice % 100) / 100;
-      cart.price = dollars + cents;
-      cart.loading = false;
-      cart.lastFetch = Date.now();
+    shoppingCartReceived: (shoppingCart, action) => {
+      shoppingCart.shoppingCartId = action.payload.id;
+      shoppingCart.customerId = action.payload.customerId;
+      shoppingCart.items = action.payload.orderItems;
+      shoppingCart.quantity = action.payload.totalQuantity;
+      let price = action.payload.totalPrice / 100;
+      shoppingCart.price = price;
+      shoppingCart.loading = false;
+      shoppingCart.lastFetch = Date.now();
     },
-    cartRequested: cart => {
-      cart.loading = true;
+    shoppingCartRequested: shoppingCart => {
+      shoppingCart.loading = true;
     },
-    cartRequestFailed: cart => {
-      cart.loading = false;
+    shoppingCartRequestFailed: shoppingCart => {
+      shoppingCart.loading = false;
     },
-    itemQuantityChanged: (cart, action) => {
-      cart.items = action.payload.orderItems;
-      cart.quantity = action.payload.totalQuantity;
-      var dollars = parseInt(action.payload.totalPrice / 100);
-      var cents = (action.payload.totalPrice % 100) / 100;
-      cart.price = dollars + cents;
-      cart.loading = false;
-      cart.lastFetch = Date.now();
+    itemQuantityChanged: (shoppingCart, action) => {
+      shoppingCart.items = action.payload.orderItems;
+      shoppingCart.quantity = action.payload.totalQuantity;
+      let price = action.payload.totalPrice / 100;
+      shoppingCart.price = price;
+      shoppingCart.loading = false;
+      shoppingCart.lastFetch = Date.now();
     },
   },
 });
 
 const {
   itemAdded,
-  cartReceived,
-  cartRequested,
-  cartRequestFailed,
+  shoppingCartReceived,
+  shoppingCartRequested,
+  shoppingCartRequestFailed,
   itemQuantityChanged,
 } = slice.actions;
 
@@ -61,14 +59,14 @@ export default slice.reducer;
 const url = '/shoppingcart/5fca9e4d7c59140783201528';
 
 export const loadShoppingCart = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.cart;
+  const { lastFetch } = getState().entities.shoppingCart;
   if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
   return dispatch(
     apiCallBegan({
       url,
-      onStart: cartRequested.type,
-      onSuccess: cartReceived.type,
-      onError: cartRequestFailed.type,
+      onStart: shoppingCartRequested.type,
+      onSuccess: shoppingCartReceived.type,
+      onError: shoppingCartRequestFailed.type,
     })
   );
 };
@@ -82,9 +80,9 @@ export const incrementOrderItem = (orderitem, userid) => (
       url: '/incrementorderitem',
       method: 'put',
       params: { orderitem, userid },
-      onStart: cartRequested.type,
+      onStart: shoppingCartRequested.type,
       onSuccess: itemQuantityChanged.type,
-      onError: cartRequestFailed.type,
+      onError: shoppingCartRequestFailed.type,
     })
   );
 };
@@ -98,9 +96,9 @@ export const decrementOrderItem = (orderitem, userid) => (
       url: '/decrementorderitem',
       method: 'put',
       params: { orderitem, userid },
-      onStart: cartRequested.type,
+      onStart: shoppingCartRequested.type,
       onSuccess: itemQuantityChanged.type,
-      onError: cartRequestFailed.type,
+      onError: shoppingCartRequestFailed.type,
     })
   );
 };

@@ -6,5 +6,5 @@ import cartReducer from './shoppingCart';
 export default combineReducers({
   deliveries: deliveryReducer,
   restaurants: restaurantReducer,
-  cart: cartReducer,
+  shoppingCart: cartReducer,
 });
