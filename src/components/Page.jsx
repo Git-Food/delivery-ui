@@ -10,9 +10,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import ShoppingCart from './ShoppingCart.jsx';
 
-// import Contents from './Contents.jsx';
-import Restaurants from './Restaurants';
-import DeliveriesList from './DeliveriesList';
+import Contents from './Contents.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +18,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 const NavBar = () => {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
-      <Navbar.Brand href="#home">Git-Food</Navbar.Brand>
+      <Navbar.Brand>Git-Food</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -64,11 +62,7 @@ export default class Page extends React.Component {
       <div>
         <NavBar />
         <Container fluid>
-          {/* TODO (shh): Create Contents component */}
-          {/* <Contents /> */}
-          {/* (shh): DeliveriesList and Restaurants used for time being */}
-          <DeliveriesList />
-          <Restaurants />
+          <Contents />
         </Container>
         <Footer />
       </div>
