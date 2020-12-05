@@ -43,15 +43,6 @@ const slice = createSlice({
       shoppingCart.loading = false;
       shoppingCart.lastFetch = Date.now();
     },
-    itemQuantityChanged: (cart, action) => {
-      cart.items = action.payload.orderItems;
-      cart.quantity = action.payload.totalQuantity;
-      var dollars = parseInt(action.payload.totalPrice / 100);
-      var cents = (action.payload.totalPrice % 100) / 100;
-      cart.price = dollars + cents;
-      cart.loading = false;
-      cart.lastFetch = Date.now();
-    },
   },
 });
 
