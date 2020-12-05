@@ -18,10 +18,7 @@ const MenuItem = props => {
           <Card.Subtitle className="mb-2 text-muted">
             {description}
           </Card.Subtitle>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
+          <Card.Text>{name.note}</Card.Text>
           <Button variant="primary">Go somewhere</Button>
         </Card.Body>
       </Card>
