@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { loadShoppingCart } from '../store/shoppingCart';
+import {
+  loadShoppingCart,
+  incrementOrderItem,
+  decrementOrderItem,
+} from '../store/shoppingCart';
 import { connect } from 'react-redux';
 import OrderItem from './OrderItem';
 
 import {
   NavItem,
   Modal,
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel,
   Button,
   ButtonToolbar,
   Tooltip,
   OverlayTrigger,
   Row,
-  Container,
 } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -68,48 +67,23 @@ class ShoppingCart extends Component {
             <Modal.Title>Shopping Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {/* <Form name="contactAdd">
-              <FormGroup>
-                <ControlLabel>Name</ControlLabel>
-                <FormControl name="name" autoFocus />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Email*</ControlLabel>
-                <FormControl name="email" />
-              </FormGroup>
-              <FormGroup validationState={invalidFields.phone ? 'error' : null}>
-                <ControlLabel>Phone Number*</ControlLabel>
-                <FormControl
-                componentClass={PhoneInput}
-                international
-                defaultCountry="US"
-                name="phone"
-                // value={phone}
-                onChange={this.onPhoneChange}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>LinkedIn*</ControlLabel>
-                <FormControl name="LinkedIn" />
-              </FormGroup>
-            </Form> */}
             {Object.entries(this.props.cart.items).map(([k, value]) => (
               <Row key="">
-                <OrderItem key={k} orderItem={value} />
+                {/* Pass props to child component, userid is harcoded for now */}
+                <OrderItem
+                  key={k}
+                  orderItem={value}
+                  onIncrement={this.props.incrementOrderItem}
+                  onDecrement={this.props.decrementOrderItem}
+                  userid={'5fca9e4d7c59140783201529'}
+                />
               </Row>
             ))}
           </Modal.Body>
           <Modal.Footer>
             <ButtonToolbar>
-              <Button
-                type="button"
-                bsStyle="primary"
-                onClick={this.handleSubmit}>
+              <Button variant="outline-dark" onClick={this.handleSubmit}>
                 Checkout
-              </Button>
-              <Button bsStyle="link" onClick={this.hideModal}>
-                Cancel
               </Button>
             </ButtonToolbar>
           </Modal.Footer>
@@ -125,11 +99,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadShoppingCart: () => dispatch(loadShoppingCart()),
+  incrementOrderItem: (orderItem, userId) =>
+    dispatch(incrementOrderItem(orderItem, userId)),
+  decrementOrderItem: (orderItem, userId) =>
+    dispatch(decrementOrderItem(orderItem, userId)),
 });
 
 ShoppingCart.propTypes = {
   cart: PropTypes.object,
   loadShoppingCart: PropTypes.func,
+  incrementOrderItem: PropTypes.func,
+  decrementOrderItem: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);

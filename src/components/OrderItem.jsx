@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Card, Button, Table, Image } from 'react-bootstrap';
+import { Button, Table, Image } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const OrderItem = props => {
   const { id, businessId, menuItem, quantity, specialNote } = props.orderItem;
@@ -21,36 +24,38 @@ const OrderItem = props => {
             <td>
               {menuItem.name}
               <br />
-              Quantity : {quantity}
+              Quantity :
+              <Button
+                variant="link"
+                onClick={() =>
+                  props.onDecrement(props.orderItem, props.userid)
+                }>
+                <FontAwesomeIcon icon={faMinusCircle} size="1x" />
+              </Button>
+              {quantity}
+              {/** Takes the onClick from the ShoppingCart component as props */}
+              <Button
+                variant="link"
+                onClick={() =>
+                  props.onIncrement(props.orderItem, props.userid)
+                }>
+                <FontAwesomeIcon icon={faPlusCircle} size="1x" />
+              </Button>
               <br />
-              Price : {menuItem.price}
+              Price: {'$' + menuItem.price * quantity}
             </td>
           </tr>
         </tbody>
       </Table>
-      {/* <Card style={{ width: '9rem' }}>
-        <Card.Img
-          variant="bottom"
-          src={`https://picsum.photos/id/${Math.floor(Math.random() * 99)}/200`}
-        />
-        <Card.Body>
-          <Card.Title>{menuItem.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            {businessId}
-          </Card.Subtitle>
-          <Card.Text>
-            {quantity} {specialNote}
-            <br />
-          </Card.Text>
-          <Button variant="primary">Remove</Button>
-        </Card.Body>
-      </Card> */}
     </div>
   );
 };
 
 OrderItem.propTypes = {
   orderItem: PropTypes.object,
+  userid: PropTypes.string,
+  onDecrement: PropTypes.func,
+  onIncrement: PropTypes.func,
 };
 
 export default OrderItem;
