@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
+import AddToShoppingCart from './AddToShoppingCart.jsx';
 
 import { Card, Button } from 'react-bootstrap';
 
@@ -19,7 +20,10 @@ const MenuItem = props => {
             {description}
           </Card.Subtitle>
           <Card.Text>{name.note}</Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          {/* <Button variant="primary"> */}
+          {/* Add to cart */}
+          <AddToShoppingCart menuItem={props.item} />
+          {/* </Button> */}
         </Card.Body>
       </Card>
     </div>
