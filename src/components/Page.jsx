@@ -25,7 +25,7 @@ const NavBar = () => {
           <LinkContainer exact to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/orders">
+          <LinkContainer to="/orderhistory">
             <Nav.Link>Orders</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/favorites">
