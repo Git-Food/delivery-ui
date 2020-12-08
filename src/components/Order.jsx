@@ -39,14 +39,13 @@ const Order = props => {
           </Col>
           <Col className="col-md-8 col-xs-12">
             <Card.Body className="text-md-right text-xs-left">
-              <Card.Title className="card-title">
-                Fetch Restaurant Name
-              </Card.Title>
+              <Card.Title>Fetch Restaurant Name</Card.Title>
               <Card.Text>
                 {orderDate}
                 <br />
                 {totalOrderItemQuantity} items
-                <br />${totalPrice.toFixed(2)}
+                <br />
+                {'$' + (totalPrice / 100).toFixed(2)}
                 <br />
                 {orderStatus}
                 <br />
