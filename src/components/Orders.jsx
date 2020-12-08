@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Container, Row } from 'react-bootstrap';
 
 import { loadOrders } from '../store/orders';
 import { connect } from 'react-redux';
 
 import Order from './Order';
 
-class OrderHistory extends Component {
+class Orders extends Component {
   componentDidMount() {
     this.props.loadOrders();
   }
@@ -48,9 +47,9 @@ const mapDispatchToProps = dispatch => ({
   loadOrders: () => dispatch(loadOrders()),
 });
 
-OrderHistory.propTypes = {
+Orders.propTypes = {
   orders: PropTypes.array,
   loadOrders: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory);
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);
