@@ -21,7 +21,7 @@ const slice = createSlice({
       shoppingCart.items.set(item.id, item);
     },
     shoppingCartReceived: (shoppingCart, action) => {
-      shoppingCart.shoppingCartId = action.payload.id;
+      shoppingCart.id = action.payload.id;
       shoppingCart.customerId = action.payload.customerId;
       shoppingCart.items = action.payload.orderItems;
       shoppingCart.quantity = action.payload.totalQuantity;
