@@ -12,9 +12,6 @@ import ShoppingCart from './ShoppingCart.jsx';
 
 import Contents from './Contents.jsx';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-
 const NavBar = () => {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
