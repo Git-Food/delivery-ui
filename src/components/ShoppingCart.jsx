@@ -26,10 +26,12 @@ class ShoppingCart extends Component {
     super(props);
     this.state = {
       showing: false,
+      // empty: false,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.isEmpty = this.isEmpty.bind(this);
   }
 
   componentDidMount() {
@@ -38,11 +40,19 @@ class ShoppingCart extends Component {
 
   showModal() {
     this.setState({ showing: true });
+    // this.setState({ empty: this.isEmpty() });
   }
 
   hideModal() {
     this.setState({ showing: false });
   }
+
+  // isEmpty() {
+  //   if (this.props.shoppingCart.items) {
+  //     return Object.keys(this.props.shoppingCart.items).length === 0;
+  //   }
+  //   return false;
+  // }
 
   async handleSubmit(e) {
     e.preventDefault();
@@ -86,7 +96,11 @@ class ShoppingCart extends Component {
               Total Price: ${this.props.shoppingCart.price.toFixed(2)}
             </Row>
             <ButtonToolbar>
-              <Button variant="outline-dark" onClick={this.handleSubmit}>
+              <Button
+                variant="outline-dark"
+                onClick={this.hideModal}
+                disabled={this.props.shoppingCart.empty}
+                href="/checkout">
                 Checkout
               </Button>
             </ButtonToolbar>
