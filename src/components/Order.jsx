@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, Row, Button, Container, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Order = props => {
   const {
@@ -11,6 +10,7 @@ const Order = props => {
     totalPrice,
     totalOrderItemQuantity,
     orderDate,
+    businessId,
   } = props.order;
 
   // TODO (shh) create Order Status button vs Re-Order Button depending on orderStatus
@@ -30,6 +30,8 @@ const Order = props => {
       'NO_COURIER_AVAILABLE' ||
       'REFUNDED' ||
       'CANCELLED');
+
+  console.log(props.order);
 
   return (
     <Container>
@@ -54,7 +56,9 @@ const Order = props => {
                 {'$' + (totalPrice / 100).toFixed(2)}
                 <br />
                 {isOrderCompleted ? (
-                  <Button>Reorder</Button>
+                  <Link to={`/menu/${businessId}`}>
+                    <Button>Reorder</Button>
+                  </Link>
                 ) : (
                   <Button>Order Status</Button>
                 )}
