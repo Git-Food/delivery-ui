@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Card, Row, Button, Container, Col } from 'react-bootstrap';
 
 const Order = props => {
-  // console.log(props.restaurantName);
   const {
     orderStatus,
     totalPrice,
@@ -24,11 +23,19 @@ const Order = props => {
 
   // const restaurantName = props.findRestaurantName(props.order.businessId);
 
+  const isOrderCompleted =
+    orderStatus ===
+    ('DELIVERED' ||
+      'REJECTED_BY_RESTAURANT' ||
+      'NO_COURIER_AVAILABLE' ||
+      'REFUNDED' ||
+      'CANCELLED');
+
   return (
     <Container>
       <Card className="mb-3">
         <Row>
-          <Col className="center">
+          <Col>
             <Card.Img
               src={`https://picsum.photos/id/${Math.floor(
                 Math.random() * 99
@@ -46,9 +53,11 @@ const Order = props => {
                 <br />
                 {'$' + (totalPrice / 100).toFixed(2)}
                 <br />
-                {orderStatus}
-                <br />
-                <Button>Re-Order</Button>
+                {isOrderCompleted ? (
+                  <Button>Reorder</Button>
+                ) : (
+                  <Button>Order Status</Button>
+                )}
               </Card.Text>
             </Card.Body>
           </Col>
