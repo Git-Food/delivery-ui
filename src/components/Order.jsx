@@ -41,7 +41,7 @@ const Order = props => {
             <Card.Body className="text-md-right text-xs-left">
               <Card.Title>Fetch Restaurant Name</Card.Title>
               <Card.Text>
-                {orderDate}
+                {`${orderDate.monthValue}/${orderDate.dayOfMonth}/${orderDate.year}`}
                 <br />
                 {totalOrderItemQuantity} items
                 <br />
