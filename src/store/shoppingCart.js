@@ -13,6 +13,7 @@ const slice = createSlice({
     price: 0,
     loading: false,
     lastFetch: null,
+    empty: false,
   },
   reducers: {
     itemAdded: (shoppingCart, action) => {
@@ -28,6 +29,10 @@ const slice = createSlice({
       shoppingCart.price = price;
       shoppingCart.loading = false;
       shoppingCart.lastFetch = Date.now();
+      shoppingCart.empty =
+        action.payload.totalQuantity !== null
+          ? action.payload.totalQuantity === 0
+          : true;
     },
     shoppingCartRequested: shoppingCart => {
       shoppingCart.loading = true;
@@ -42,6 +47,10 @@ const slice = createSlice({
       shoppingCart.price = price;
       shoppingCart.loading = false;
       shoppingCart.lastFetch = Date.now();
+      shoppingCart.empty =
+        action.payload.totalQuantity !== null
+          ? action.payload.totalQuantity === 0
+          : true;
     },
   },
 });
@@ -57,8 +66,7 @@ const {
 export default slice.reducer;
 
 // TODO: (pcg) replace shoppingCart id with user id
-// const url = '/shoppingcart/5fd00a8670007d571d962dbd';
-const url = '/shoppingcart/5fca9e4d7c59140783201528';
+const url = '/shoppingcart/5fd00a8670007d571d962dbd';
 
 export const loadShoppingCart = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.shoppingCart;

@@ -26,30 +26,33 @@ class ShoppingCart extends Component {
     super(props);
     this.state = {
       showing: false,
-      activeCheckOut: false,
+      // empty: false,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.activeCheckOut = this.activeCheckOut.bind(this);
+    // this.isEmpty = this.isEmpty.bind(this);
   }
 
   componentDidMount() {
     this.props.loadShoppingCart();
-    this.setState({ activeCheckOut: this.activeCheckOut });
   }
 
   showModal() {
     this.setState({ showing: true });
+    // this.setState({ empty: this.isEmpty() });
   }
 
   hideModal() {
     this.setState({ showing: false });
   }
 
-  activeCheckOut() {
-    return this.props.shoppingCart.items.size > 0;
-  }
+  // isEmpty() {
+  //   if (this.props.shoppingCart.items) {
+  //     return Object.keys(this.props.shoppingCart.items).length === 0;
+  //   }
+  //   return false;
+  // }
 
   async handleSubmit(e) {
     e.preventDefault();
@@ -96,7 +99,7 @@ class ShoppingCart extends Component {
               <Button
                 variant="outline-dark"
                 onClick={this.hideModal}
-                disabled={!this.state.activeCheckOut}
+                disabled={this.props.shoppingCart.empty}
                 href="/checkout">
                 Checkout
               </Button>
