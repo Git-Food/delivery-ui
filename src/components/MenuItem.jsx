@@ -20,10 +20,7 @@ const MenuItem = props => {
             {description}
           </Card.Subtitle>
           <Card.Text>{name.note}</Card.Text>
-          {/* <Button variant="primary"> */}
-          {/* Add to cart */}
-          <AddToShoppingCart menuItem={props.item} />
-          {/* </Button> */}
+          <AddToShoppingCart id="addToCart" menuItem={props.item} />
         </Card.Body>
       </Card>
     </div>
