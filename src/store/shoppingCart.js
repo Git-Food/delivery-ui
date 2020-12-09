@@ -40,18 +40,6 @@ const slice = createSlice({
     shoppingCartRequestFailed: shoppingCart => {
       shoppingCart.loading = false;
     },
-    itemQuantityChanged: (shoppingCart, action) => {
-      shoppingCart.items = action.payload.orderItems;
-      shoppingCart.quantity = action.payload.totalQuantity;
-      let price = action.payload.totalPrice / 100;
-      shoppingCart.price = price;
-      shoppingCart.loading = false;
-      shoppingCart.lastFetch = Date.now();
-      shoppingCart.empty =
-        action.payload.totalQuantity !== null
-          ? action.payload.totalQuantity === 0
-          : true;
-    },
   },
 });
 
@@ -60,7 +48,6 @@ const {
   shoppingCartReceived,
   shoppingCartRequested,
   shoppingCartRequestFailed,
-  itemQuantityChanged,
 } = slice.actions;
 
 export default slice.reducer;
@@ -91,7 +78,7 @@ export const incrementOrderItem = (orderitem, userid) => (
       method: 'put',
       params: { orderitem, userid },
       onStart: shoppingCartRequested.type,
-      onSuccess: itemQuantityChanged.type,
+      onSuccess: shoppingCartReceived.type,
       onError: shoppingCartRequestFailed.type,
     })
   );
@@ -107,7 +94,7 @@ export const decrementOrderItem = (orderitem, userid) => (
       method: 'put',
       params: { orderitem, userid },
       onStart: shoppingCartRequested.type,
-      onSuccess: itemQuantityChanged.type,
+      onSuccess: shoppingCartReceived.type,
       onError: shoppingCartRequestFailed.type,
     })
   );
