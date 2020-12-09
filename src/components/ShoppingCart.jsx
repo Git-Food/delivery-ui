@@ -26,14 +26,17 @@ class ShoppingCart extends Component {
     super(props);
     this.state = {
       showing: false,
+      activeCheckOut: false,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.activeCheckOut = this.activeCheckOut.bind(this);
   }
 
   componentDidMount() {
     this.props.loadShoppingCart();
+    this.setState({ activeCheckOut: this.activeCheckOut });
   }
 
   showModal() {
@@ -42,6 +45,10 @@ class ShoppingCart extends Component {
 
   hideModal() {
     this.setState({ showing: false });
+  }
+
+  activeCheckOut() {
+    return this.props.shoppingCart.items.size > 0;
   }
 
   async handleSubmit(e) {
@@ -86,7 +93,11 @@ class ShoppingCart extends Component {
               Total Price: ${this.props.shoppingCart.price.toFixed(2)}
             </Row>
             <ButtonToolbar>
-              <Button variant="outline-dark" onClick={this.handleSubmit}>
+              <Button
+                variant="outline-dark"
+                onClick={this.hideModal}
+                disabled={!this.state.activeCheckOut}
+                href="/checkout">
                 Checkout
               </Button>
             </ButtonToolbar>
