@@ -107,7 +107,7 @@ export const addOrderItem = (
   );
 };
 
-export const checkout = (userid) => dispatch => {
+export const checkout = userid => dispatch => {
   return dispatch(
     apiCallBegan({
       url: '/checkout',
