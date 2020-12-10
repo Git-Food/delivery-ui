@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 import { loadOrders } from '../store/orders';
 import { connect } from 'react-redux';
+import { loadRestaurants } from '../store/restaurants';
 
 import Order from './Order';
 
 class Orders extends Component {
   componentDidMount() {
+    this.props.loadRestaurants();
     this.props.loadOrders();
   }
 
@@ -41,15 +43,19 @@ class Orders extends Component {
 
 const mapStateToProps = state => ({
   orders: state.entities.orders.list,
+  restaurants: state.entities.restaurants.list,
 });
 
 const mapDispatchToProps = dispatch => ({
   loadOrders: () => dispatch(loadOrders()),
+  loadRestaurants: () => dispatch(loadRestaurants()),
 });
 
 Orders.propTypes = {
   orders: PropTypes.array,
   loadOrders: PropTypes.func,
+  restaurants: PropTypes.array,
+  loadRestaurants: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
