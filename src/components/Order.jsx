@@ -81,7 +81,7 @@ const mapDispatchToProps = dispatch => ({
 
 Order.propTypes = {
   order: PropTypes.object,
-  restaurants: PropTypes.object,
+  restaurants: PropTypes.array,
   loadRestaurants: PropTypes.func,
 };
 

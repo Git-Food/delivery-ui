@@ -106,6 +106,19 @@ export const addOrderItem = (
     })
   );
 };
+
+export const checkout = userid => dispatch => {
+  return dispatch(
+    apiCallBegan({
+      url: '/checkout',
+      method: 'post',
+      params: { userid },
+      onStart: shoppingCartRequested.type,
+      onSuccess: shoppingCartReceived.type,
+      onError: shoppingCartRequestFailed.type,
+    })
+  );
+};
 // export const setMenu = menu =>
 //   apiCallBegan({
 //     url,
