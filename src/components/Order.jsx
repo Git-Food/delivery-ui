@@ -3,12 +3,24 @@ import PropTypes from 'prop-types';
 
 import { Card, Row, Button, Container, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { loadRestaurants } from '../store/restaurants';
 
 class Order extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      matchingRestaurant: {},
+    };
+  }
+
+  findMatchingRestaurant(restaurants) {
+    const matchingRestaurant = restaurants.find(
+      restaurant => restaurant.id === this.props.order.businessId
+    );
+    this.setState({ matchingRestaurant: matchingRestaurant });
+  }
+
   componentDidMount() {
-    this.props.loadRestaurants();
+    this.findMatchingRestaurant(this.props.restaurants);
   }
 
   render() {
@@ -17,8 +29,8 @@ class Order extends React.Component {
       totalPrice,
       totalOrderItemQuantity,
       orderDate,
-      businessId,
     } = this.props.order;
+    const { matchingRestaurant } = this.state;
 
     const isOrderCompleted =
       orderStatus ===
@@ -27,10 +39,6 @@ class Order extends React.Component {
         'NO_COURIER_AVAILABLE' ||
         'REFUNDED' ||
         'CANCELLED');
-
-    const matchingRestaurant = this.props.restaurants.find(
-      restaurant => restaurant.id === businessId
-    );
 
     return (
       <Container>
@@ -71,18 +79,9 @@ class Order extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  restaurants: state.entities.restaurants.list,
-});
-
-const mapDispatchToProps = dispatch => ({
-  loadRestaurants: () => dispatch(loadRestaurants()),
-});
-
 Order.propTypes = {
   order: PropTypes.object,
-  restaurants: PropTypes.object,
-  loadRestaurants: PropTypes.func,
+  restaurants: PropTypes.array,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default Order;
