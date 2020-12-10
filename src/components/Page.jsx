@@ -29,10 +29,6 @@ const NavBar = () => {
             <Nav.Link>Favorites</Nav.Link>
           </LinkContainer>
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-light">Search</Button>
-        </Form>
         <Nav className="ml-auto">
           <ShoppingCart />
         </Nav>
