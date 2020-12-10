@@ -131,8 +131,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addOrderItem: (menuItem, note, quantity, userId) =>
-    dispatch(addOrderItem(menuItem, note, quantity, userId)),
+  addOrderItem: (menuItem, specialnote, quantity, userId) =>
+    dispatch(addOrderItem(menuItem, specialnote, quantity, userId)),
 });
 
 AddToShoppingCart.propTypes = {
