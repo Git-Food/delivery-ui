@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Modal, Form, Button, Row, Image, Table, Col } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { addOrderItem } from '../store/shoppingCart';
 
 class AddToShoppingCart extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class AddToShoppingCart extends Component {
     this.hideModal = this.hideModal.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
+    this.addItem = this.addItem.bind(this);
   }
 
   componentDidMount() {}
@@ -40,11 +43,18 @@ class AddToShoppingCart extends Component {
     this.setState({ showing: false });
   }
 
-  // TODO (pcg): implement add to shoppingCart button
-  //   async handleSubmit(e) {
-  //     e.preventDefault();
-  //     this.hideModal();
-  //   }
+  // TODO (pcg): take userid from store, is hardcoded for now
+  addItem() {
+    this.hideModal();
+    const form = document.forms.menuItemAdd;
+    this.props.addOrderItem(
+      this.props.menuItem,
+      form.specialnote.value,
+      this.state.quantity,
+      '5fd00ac53e79e6ef143eab21'
+    );
+    this.setState({ quantity: 1 });
+  }
 
   render() {
     const { showing } = this.state;
@@ -105,7 +115,9 @@ class AddToShoppingCart extends Component {
               </Form.Row>
             </Col>
             <Col>
-              <Button variant="outline-dark">Add to Shopping Cart</Button>
+              <Button variant="outline-dark" onClick={this.addItem}>
+                Add to Shopping Cart
+              </Button>
             </Col>
           </Modal.Footer>
         </Modal>
@@ -114,8 +126,19 @@ class AddToShoppingCart extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  shoppingCart: state.entities.shoppingCart,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addOrderItem: (menuItem, note, quantity, userId) =>
+    dispatch(addOrderItem(menuItem, note, quantity, userId)),
+});
+
 AddToShoppingCart.propTypes = {
   menuItem: PropTypes.object,
+  shoppingCart: PropTypes.object,
+  addOrderItem: PropTypes.func,
 };
 
-export default AddToShoppingCart;
+export default connect(mapStateToProps, mapDispatchToProps)(AddToShoppingCart);

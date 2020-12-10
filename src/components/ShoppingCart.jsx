@@ -26,12 +26,9 @@ class ShoppingCart extends Component {
     super(props);
     this.state = {
       showing: false,
-      // empty: false,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    // this.isEmpty = this.isEmpty.bind(this);
   }
 
   componentDidMount() {
@@ -40,19 +37,11 @@ class ShoppingCart extends Component {
 
   showModal() {
     this.setState({ showing: true });
-    // this.setState({ empty: this.isEmpty() });
   }
 
   hideModal() {
     this.setState({ showing: false });
   }
-
-  // isEmpty() {
-  //   if (this.props.shoppingCart.items) {
-  //     return Object.keys(this.props.shoppingCart.items).length === 0;
-  //   }
-  //   return false;
-  // }
 
   async handleSubmit(e) {
     e.preventDefault();
@@ -78,7 +67,7 @@ class ShoppingCart extends Component {
           </Modal.Header>
           <Modal.Body>
             {Object.entries(this.props.shoppingCart.items).map(([k, value]) => (
-              <Row key="">
+              <Row key={k + '1'}>
                 {/* Pass props to child component, userid is harcoded for now */}
                 {/* TODO: (pcg) replace harcoded user id */}
                 <OrderItem
@@ -86,7 +75,7 @@ class ShoppingCart extends Component {
                   orderItem={value}
                   onIncrement={this.props.incrementOrderItem}
                   onDecrement={this.props.decrementOrderItem}
-                  userid={'5fca9e4d7c59140783201529'}
+                  userid={'5fd00ac53e79e6ef143eab21'}
                 />
               </Row>
             ))}

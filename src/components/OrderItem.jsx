@@ -7,7 +7,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const OrderItem = props => {
-  const { id, businessId, menuItem, quantity, specialNote } = props.orderItem;
+  const { menuItem, quantity, specialNote } = props.orderItem;
   return (
     <div>
       <Table responsive>
@@ -44,8 +44,10 @@ const OrderItem = props => {
               <br />
               Unit price: {'$' + (menuItem.price / 100).toFixed(2)}
               <br />
-              Order item total:{}
-              {'$' + ((menuItem.price / 100) * quantity).toFixed(2)}
+              Order item total:
+              {` $ ${((menuItem.price / 100) * quantity).toFixed(2)}`}
+              <br />
+              Notes: {specialNote}
             </td>
           </tr>
         </tbody>

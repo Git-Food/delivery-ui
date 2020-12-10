@@ -16,10 +16,6 @@ const slice = createSlice({
     empty: false,
   },
   reducers: {
-    itemAdded: (shoppingCart, action) => {
-      const { item } = action.payload;
-      shoppingCart.items.set(item.id, item);
-    },
     shoppingCartReceived: (shoppingCart, action) => {
       shoppingCart.id = action.payload.id;
       shoppingCart.customerId = action.payload.customerId;
@@ -44,7 +40,6 @@ const slice = createSlice({
 });
 
 const {
-  itemAdded,
   shoppingCartReceived,
   shoppingCartRequested,
   shoppingCartRequestFailed,
@@ -68,10 +63,7 @@ export const loadShoppingCart = () => (dispatch, getState) => {
   );
 };
 
-export const incrementOrderItem = (orderitem, userid) => (
-  dispatch,
-  getState
-) => {
+export const incrementOrderItem = (orderitem, userid) => dispatch => {
   return dispatch(
     apiCallBegan({
       url: '/incrementorderitem',
@@ -84,15 +76,30 @@ export const incrementOrderItem = (orderitem, userid) => (
   );
 };
 
-export const decrementOrderItem = (orderitem, userid) => (
-  dispatch,
-  getState
-) => {
+export const decrementOrderItem = (orderitem, userid) => dispatch => {
   return dispatch(
     apiCallBegan({
       url: '/decrementorderitem',
       method: 'put',
       params: { orderitem, userid },
+      onStart: shoppingCartRequested.type,
+      onSuccess: shoppingCartReceived.type,
+      onError: shoppingCartRequestFailed.type,
+    })
+  );
+};
+
+export const addOrderItem = (
+  menuitem,
+  specialnote,
+  quantity,
+  userid
+) => dispatch => {
+  return dispatch(
+    apiCallBegan({
+      url: '/addorderitem',
+      method: 'put',
+      params: { menuitem, specialnote, quantity, userid },
       onStart: shoppingCartRequested.type,
       onSuccess: shoppingCartReceived.type,
       onError: shoppingCartRequestFailed.type,
