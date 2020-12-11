@@ -9,11 +9,11 @@ const Menu = ({ match }) => {
   useEffect(() => {
     fetchMenu();
   }, []);
-
   const [menu, setMenu] = useState({
     menuItems: [],
   });
 
+  // Looks up the menu based on the menu id provided in the url
   const fetchMenu = async () => {
     const data = await fetch(
       `https://git-food.herokuapp.com/menu/${match.params.id}`
@@ -22,16 +22,24 @@ const Menu = ({ match }) => {
     setMenu(menu);
   };
 
-  return (
-    <>
-      <h1>Menu Placeholder</h1>
+  // Optionally renders menuItems if it has any items, default is []
+  const menuComponent =
+    menu.menuItems.length > 0 ? (
+      <>
+        <h2>{menu.name}</h2>
+        <Row>
+          {menu.menuItems.map(item => (
+            <MenuItem key={item.id} item={item} />
+          ))}
+        </Row>
+      </>
+    ) : (
       <Row>
-        {menu.menuItems.map(item => (
-          <MenuItem key={item.id} item={item} />
-        ))}
+        <h2>No menu available for restaurant</h2>
       </Row>
-    </>
-  );
+    );
+
+  return menuComponent;
 };
 
 Menu.propTypes = {

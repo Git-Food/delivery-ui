@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AddToShoppingCart from './AddToShoppingCart.jsx';
 
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 const MenuItem = props => {
-  const { name, description } = props.item;
+  const { name, description, price } = props.item;
   return (
     <div>
       <Card style={{ width: '18rem' }}>
@@ -15,7 +15,10 @@ const MenuItem = props => {
           src={`https://picsum.photos/id/${Math.floor(Math.random() * 99)}/200`}
         />
         <Card.Body>
-          <Card.Title>{name}</Card.Title>
+          <Card.Title>
+            {name} - {'$' + (price / 100).toFixed(2)}
+          </Card.Title>
+          <Card.Title> </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {description}
           </Card.Subtitle>
