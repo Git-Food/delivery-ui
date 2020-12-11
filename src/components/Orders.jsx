@@ -8,19 +8,36 @@ import { loadRestaurants } from '../store/restaurants';
 import Order from './Order';
 
 class Orders extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userOrders: [],
+    };
+  }
+
   componentDidMount() {
     this.props.loadOrders();
     this.props.loadRestaurants();
+    // TODO: changed to this.props.userId?? if user userId or context
+    this.fetchUserOrders('5fd00ac53e79e6ef143eab21');
   }
 
-  // TO DO (shh): need to create fetcher for orders only by specific userID
+  fetchUserOrders = async userId => {
+    const data = await fetch(
+      `https://git-food.herokuapp.com/orderhistory?userId=${userId}`
+    );
+    const orders = await data.json();
+    this.setState({ userOrders: orders });
+  };
 
   render() {
+    const { userOrders } = this.state;
+    // console.log(userOrders);
     return (
       <>
         <h1>Placeholder for OrderHistory View</h1>
-        {this.props.orders ? (
-          this.props.orders.map(order => (
+        {userOrders.length ? (
+          userOrders.map(order => (
             <Order
               key={order.id}
               order={order}
