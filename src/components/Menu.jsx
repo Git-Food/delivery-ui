@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Row } from 'react-bootstrap';
+import { Container, Jumbotron, Row } from 'react-bootstrap';
 
 import MenuItem from './MenuItem';
 
@@ -23,23 +23,25 @@ const Menu = ({ match }) => {
   };
 
   // Optionally renders menuItems if it has any items, default is []
-  const menuComponent =
-    menu.menuItems.length > 0 ? (
-      <>
-        <h2>{menu.name}</h2>
+  return (
+    <>
+      <h2>{menu.name}</h2>
+      {menu.menuItems.length ? (
         <Row>
           {menu.menuItems.map(item => (
             <MenuItem key={item.id} item={item} />
           ))}
         </Row>
-      </>
-    ) : (
-      <Row>
-        <h2>No menu available for restaurant</h2>
-      </Row>
-    );
-
-  return menuComponent;
+      ) : (
+        <Jumbotron fluid>
+          <Container className="text-center">
+            <h2>No menu item available</h2>
+            <p>Please check another restaurant</p>
+          </Container>
+        </Jumbotron>
+      )}
+    </>
+  );
 };
 
 Menu.propTypes = {
