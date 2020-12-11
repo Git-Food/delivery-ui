@@ -16,6 +16,7 @@ class Orders extends Component {
   }
 
   componentDidMount() {
+    this.props.loadRestaurants();
     this.props.loadOrders();
     this.props.loadRestaurants();
     // TODO: changed to this.props.userId?? if user userId or context

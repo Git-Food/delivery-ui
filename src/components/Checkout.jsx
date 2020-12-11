@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Table, Form, FormGroup, Button, Col, Card } from 'react-bootstrap';
-import { loadShoppingCart } from '../store/shoppingCart';
+import { loadShoppingCart, checkout } from '../store/shoppingCart';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
@@ -93,7 +93,12 @@ class Checkout extends Component {
                 <br />
                 <Button
                   variant="success"
-                  disabled={this.props.shoppingCart.empty}>
+                  disabled={this.props.shoppingCart.empty}
+                  // TODO (pcg): replace user id
+                  onClick={() =>
+                    this.props.checkout('5fd00ac53e79e6ef143eab21')
+                  }
+                  href="/orders">
                   Place Order
                 </Button>
               </td>
@@ -135,33 +140,12 @@ class Checkout extends Component {
         <br />
         <h3>Show your support with a tip</h3>
         {/* TODO (pcg) limit to one option checked */}
-        <Form name="tipPercentage">
-          <div key={`custom-inline-checkbox`} className="mb-3">
-            <Form.Check
-              custom
-              inline
-              label="15%"
-              type="checkbox"
-              id="fifthteen"
-              value="15"
-            />
-            <Form.Check
-              custom
-              inline
-              label="18%"
-              type="checkbox"
-              id="eighteen"
-              value="18"
-            />
-            <Form.Check
-              custom
-              inline
-              label="20%"
-              type="checkbox"
-              id="twenty"
-              value="20"
-            />
-          </div>
+        <Form>
+          <FormGroup controlId="tip">
+            <Form.Check inline label="15%" type="checkbox" value="15" />
+            <Form.Check inline label="18%" type="checkbox" value="18" />
+            <Form.Check inline label="20%" type="checkbox" value="20" />
+          </FormGroup>
         </Form>
       </>
     );
@@ -170,6 +154,7 @@ class Checkout extends Component {
 
 const mapDispatchToProps = dispatch => ({
   loadShoppingCart: () => dispatch(loadShoppingCart()),
+  checkout: userId => dispatch(checkout(userId)),
 });
 
 const mapStateToProps = state => ({
@@ -179,6 +164,7 @@ const mapStateToProps = state => ({
 Checkout.propTypes = {
   shoppingCart: PropTypes.object,
   loadShoppingCart: PropTypes.func,
+  checkout: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
