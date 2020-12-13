@@ -10,39 +10,31 @@ import Order from './Order';
 class Orders extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userOrders: [],
-    };
+    this.findMatchingRestaurant = this.findMatchingRestaurant.bind(this);
   }
 
   componentDidMount() {
     this.props.loadRestaurants();
     this.props.loadOrders();
-    this.props.loadRestaurants();
-    // TODO: changed to this.props.userId?? if user userId or context
-    this.fetchUserOrders('5fd00ac53e79e6ef143eab21');
   }
 
-  fetchUserOrders = async userId => {
-    const data = await fetch(
-      `https://git-food.herokuapp.com/orderhistory?userId=${userId}`
+  findMatchingRestaurant(order) {
+    const matchingRestaurant = this.props.restaurants.find(
+      restaurant => restaurant.id === order.businessId
     );
-    const orders = await data.json();
-    this.setState({ userOrders: orders });
-  };
+    return matchingRestaurant;
+  }
 
   render() {
-    const { userOrders } = this.state;
-    // console.log(userOrders);
     return (
       <>
         <h1>Placeholder for OrderHistory View</h1>
-        {userOrders.length ? (
-          userOrders.map(order => (
+        {this.props.orders.length ? (
+          this.props.orders.map(order => (
             <Order
               key={order.id}
               order={order}
-              restaurants={this.props.restaurants}
+              matchingRestaurant={this.findMatchingRestaurant(order)}
             />
           ))
         ) : (
