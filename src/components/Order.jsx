@@ -62,7 +62,6 @@ const Order = props => {
 
 Order.propTypes = {
   order: PropTypes.object,
-  restaurants: PropTypes.array,
   matchingRestaurant: PropTypes.object,
 };
 
