@@ -23,12 +23,12 @@ const slice = createSlice({
       shoppingCart.quantity = action.payload.totalQuantity;
       let price = action.payload.totalPrice / 100;
       shoppingCart.price = price;
-      shoppingCart.loading = false;
       shoppingCart.lastFetch = Date.now();
       shoppingCart.empty =
         action.payload.totalQuantity !== null
           ? action.payload.totalQuantity === 0
           : true;
+      shoppingCart.loading = false;
     },
     shoppingCartRequested: shoppingCart => {
       shoppingCart.loading = true;
@@ -112,6 +112,19 @@ export const checkout = userid => dispatch => {
     apiCallBegan({
       url: '/checkout',
       method: 'post',
+      params: { userid },
+      onStart: shoppingCartRequested.type,
+      onSuccess: shoppingCartReceived.type,
+      onError: shoppingCartRequestFailed.type,
+    })
+  );
+};
+
+export const clearShoppingCart = userid => dispatch => {
+  return dispatch(
+    apiCallBegan({
+      url: '/clearshoppingcart',
+      method: 'put',
       params: { userid },
       onStart: shoppingCartRequested.type,
       onSuccess: shoppingCartReceived.type,
