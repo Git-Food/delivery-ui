@@ -26,11 +26,13 @@ class Orders extends Component {
   }
 
   render() {
+    const orders = this.props.orders;
+    const restaurants = this.props.restaurants;
     return (
       <>
         <h1>Placeholder for OrderHistory View</h1>
-        {this.props.orders.length ? (
-          this.props.orders.map(order => (
+        {restaurants.length && orders.length ? (
+          orders.map(order => (
             <Order
               key={order.id}
               order={order}
