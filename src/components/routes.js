@@ -1,16 +1,28 @@
 import Menu from './Menu';
 import Restaurants from './Restaurants';
 import Orders from './Orders';
-import NotFound from './NotFound.jsx';
-import Checkout from './Checkout.jsx';
+import NotFound from './NotFound';
+import Checkout from './Checkout';
+import Login from './Login';
+// import Profile from './Profile';
+import Signup from './Signup';
+import ForgotPassword from './ForgotPassword';
+import UpdateProfile from './UpdateProfile';
 
-// TODO (shh): modify orderhistory route to include userID.
-const routes = [
-  { path: '/restaurants', component: Restaurants },
-  { path: '/menu/:id', component: Menu },
+// Requires user to be logged in to view
+export const privateRoutes = [
   { path: '/checkout', component: Checkout },
   { path: '/orders', component: Orders },
-  { path: '*', component: NotFound },
+  // { path: '/profile', component: Profile },
+  { path: '/update-profile', component: UpdateProfile },
 ];
 
-export default routes;
+// Does not require user to be logged in to view
+export const regularRoutes = [
+  { path: '/login', component: Login },
+  { path: '/signup', component: Signup },
+  { path: '/restaurants', component: Restaurants },
+  { path: '/menu/:id', component: Menu },
+  { path: '/forgot-password', component: ForgotPassword },
+  { path: '*', component: NotFound },
+];

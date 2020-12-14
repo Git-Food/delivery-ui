@@ -1,7 +1,8 @@
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import ShoppingCart from './ShoppingCart.jsx';
+import Profile from './Profile';
 
 import Contents from './Contents.jsx';
 
@@ -24,6 +25,9 @@ const NavBar = () => {
         </Nav>
         <Nav className="ml-auto">
           <ShoppingCart />
+        </Nav>
+        <Nav className="ml-5">
+          <Profile />
         </Nav>
       </Navbar.Collapse>
     </Navbar>

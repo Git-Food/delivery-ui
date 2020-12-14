@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Form, FormControl } from 'react-bootstrap';
+import { Container, Form, FormControl, Jumbotron, Row } from 'react-bootstrap';
 
 import { loadRestaurants } from '../store/restaurants';
 import { connect } from 'react-redux';
