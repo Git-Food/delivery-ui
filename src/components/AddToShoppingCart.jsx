@@ -98,6 +98,7 @@ class AddToShoppingCart extends Component {
       <>
         {promptUser ? (
           <React.Fragment>
+            <Button onClick={this.showModal}>Add to shopping cart</Button>
             <Modal keyboard show={showing} onHide={this.hideModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Create new order?</Modal.Title>
