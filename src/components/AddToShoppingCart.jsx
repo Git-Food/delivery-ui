@@ -45,8 +45,8 @@ class AddToShoppingCart extends Component {
   }
 
   hideModal() {
-    this.setState({ promptUser: false });
     this.setState({ showing: false });
+    this.setState({ promptUser: false });
   }
 
   // TODO (pcg): take userid from store, is hardcoded for now
@@ -94,6 +94,7 @@ class AddToShoppingCart extends Component {
     const { showing } = this.state;
     const { name, price } = this.props.menuItem;
     const { promptUser } = this.state;
+    const restaurantName = this.props.restaurantName;
     return (
       <>
         {promptUser ? (
@@ -101,14 +102,19 @@ class AddToShoppingCart extends Component {
             <Button onClick={this.showModal}>Add to shopping cart</Button>
             <Modal keyboard show={showing} onHide={this.hideModal}>
               <Modal.Header closeButton>
-                <Modal.Title>Create new order?</Modal.Title>
+                <Modal.Title>Start new cart?</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <p>Your order contains items from a different restaurant.</p>
-                <br />
-                <p>Create a new order?</p>
+                <p>
+                  Your cart already contains items from a different restaurant.
+                  Would you like to clear the cart and add this item from
+                  {restaurantName} instead?
+                </p>
               </Modal.Body>
               <Modal.Footer>
+                <Button variant="secondary" onClick={this.hideModal}>
+                  Cancel
+                </Button>
                 <Button variant="outline-dark" onClick={this.createNewOrder}>
                   Create New Order
                 </Button>
@@ -199,6 +205,7 @@ AddToShoppingCart.propTypes = {
   shoppingCart: PropTypes.object,
   addOrderItem: PropTypes.func,
   clearShoppingCart: PropTypes.func,
+  restaurantName: PropTypes.string,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToShoppingCart);

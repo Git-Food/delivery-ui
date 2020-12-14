@@ -23,7 +23,11 @@ const MenuItem = props => {
             {description}
           </Card.Subtitle>
           <Card.Text>{name.note}</Card.Text>
-          <AddToShoppingCart id="addToCart" menuItem={props.item} />
+          <AddToShoppingCart
+            id="addToCart"
+            menuItem={props.item}
+            restaurantName={props.restaurantName}
+          />
         </Card.Body>
       </Card>
     </div>
@@ -32,6 +36,7 @@ const MenuItem = props => {
 
 MenuItem.propTypes = {
   item: PropTypes.object,
+  restaurantName: PropTypes.string,
 };
 
 export default MenuItem;
