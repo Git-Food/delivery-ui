@@ -3,39 +3,50 @@ import PropTypes from 'prop-types';
 
 import { loadOrders } from '../store/orders';
 import { connect } from 'react-redux';
+import { Jumbotron, Container } from 'react-bootstrap';
 import { loadRestaurants } from '../store/restaurants';
-
 import Order from './Order';
 
 class Orders extends Component {
+  constructor(props) {
+    super(props);
+    this.findMatchingRestaurant = this.findMatchingRestaurant.bind(this);
+  }
+
   componentDidMount() {
     this.props.loadRestaurants();
     this.props.loadOrders();
   }
 
-  // TO DO (shh): need to fetch restaurant name for every order
-  // async fetchRestaurant(businessId) {
-  //   const data = fetch(
-  //     `https://git-food.herokuapp.com/restaurant/5fca9eb5e4e763507dc3aab3`
-  //   );
-  //   const restaurant = data.json();
-  //   console.log(restaurant.name);
-  //   return restaurant.name;
-  // }
-
-  // TO DO (shh): need to create fetcher for orders only by specific userID
+  findMatchingRestaurant(order) {
+    const matchingRestaurant = this.props.restaurants.find(
+      restaurant => restaurant.id === order.businessId
+    );
+    return matchingRestaurant;
+  }
 
   render() {
+    const orders = this.props.orders;
+    const restaurants = this.props.restaurants;
     return (
       <>
         <h1>Placeholder for OrderHistory View</h1>
-        {this.props.orders.map(order => (
-          <Order
-            key={order.id}
-            order={order}
-            // findRestaurantName={this.fetchRestaurant}
-          />
-        ))}
+        {restaurants.length && orders.length ? (
+          orders.map(order => (
+            <Order
+              key={order.id}
+              order={order}
+              matchingRestaurant={this.findMatchingRestaurant(order)}
+            />
+          ))
+        ) : (
+          <Jumbotron fluid>
+            <Container className="text-center">
+              <h2>No Past Orders</h2>
+              <p>Are you never hungry?</p>
+            </Container>
+          </Jumbotron>
+        )}
       </>
     );
   }

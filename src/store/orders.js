@@ -44,7 +44,8 @@ const {
 
 export default slice.reducer;
 
-const url = '/order';
+// TO DO (shh) : change to pass in userID as needed
+const url = '/orderhistory?userId=5fd00ac53e79e6ef143eab21';
 
 export const loadOrders = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.orders;
