@@ -29,7 +29,7 @@ const Menu = ({ match }) => {
       {menu.menuItems.length ? (
         <Row>
           {menu.menuItems.map(item => (
-            <MenuItem key={item.id} item={item} />
+            <MenuItem key={item.id} item={item} restaurantName={menu.name} />
           ))}
         </Row>
       ) : (
