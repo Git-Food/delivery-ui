@@ -1,9 +1,18 @@
 import React from 'react';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import {
+  Container,
+  Navbar,
+  Nav,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import ShoppingCart from './ShoppingCart.jsx';
-import Profile from './Profile';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+import ShoppingCart from './ShoppingCart.jsx';
 import Contents from './Contents.jsx';
 
 const NavBar = () => {
@@ -27,10 +36,22 @@ const NavBar = () => {
           <ShoppingCart />
         </Nav>
         <Nav className="ml-5">
-          <Profile />
+          <Link to="/profile">
+            <Profile />
+          </Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
+  );
+};
+
+const Profile = () => {
+  return (
+    <OverlayTrigger
+      placement="left"
+      overlay={<Tooltip id="profile">Profile</Tooltip>}>
+      <FontAwesomeIcon icon={faUser} style={{ color: 'black' }} size="2x" />
+    </OverlayTrigger>
   );
 };
 

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import {
   loadShoppingCart,
   incrementOrderItem,
   decrementOrderItem,
 } from '../store/shoppingCart';
-import { connect } from 'react-redux';
 import OrderItem from './OrderItem';
 import { useAuth } from '../store/AuthContext';
 

@@ -4,17 +4,15 @@ import Orders from './Orders';
 import NotFound from './NotFound';
 import Checkout from './Checkout';
 import Login from './Login';
-// import Profile from './Profile';
 import Signup from './Signup';
 import ForgotPassword from './ForgotPassword';
-import UpdateProfile from './UpdateProfile';
+import Profile from './Profile';
 
 // Requires user to be logged in to view
 export const privateRoutes = [
   { path: '/checkout', component: Checkout },
   { path: '/orders', component: Orders },
-  // { path: '/profile', component: Profile },
-  { path: '/update-profile', component: UpdateProfile },
+  { path: '/profile', component: Profile },
 ];
 
 // Does not require user to be logged in to view

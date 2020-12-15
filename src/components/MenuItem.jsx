@@ -1,6 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import AddToShoppingCart from './AddToShoppingCart.jsx';
 
 import { Card } from 'react-bootstrap';
