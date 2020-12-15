@@ -20,13 +20,13 @@ export default function Signup() {
     }
     try {
       setError('');
-      setLoading('true');
+      setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
       history.push('/');
     } catch {
       setError('Failed to create account');
     }
-    setLoading('false');
+    setLoading(false);
   }
 
   return (

@@ -15,13 +15,13 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       setError('');
-      setLoading('true');
+      setLoading(true);
       await resetPassword(emailRef.current.value);
       setMessage('Check your inbox further instructions');
     } catch {
       setError('Failed to reset password');
     }
-    setLoading('false');
+    setLoading(false);
   }
 
   return (
