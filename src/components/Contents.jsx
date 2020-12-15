@@ -8,7 +8,7 @@ import Restaurants from './Restaurants';
 export default function Contents() {
   return (
     <Switch>
-      <PrivateRoute exact path="/" component={Restaurants} />
+      <Route exact path="/" component={Restaurants} />
       {/* Some pages require users to be logged in to view*/}
       {privateRoutes.map(attrs => (
         <PrivateRoute {...attrs} key={attrs.path} />
