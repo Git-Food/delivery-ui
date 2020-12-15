@@ -8,9 +8,9 @@ import { useAuth } from '../store/AuthContext';
   /* If user is logged in, then redirect to component
   Otherwise, redirect to login page*/
 }
+// eslint-disable-next-line react/prop-types
 export default function PrivateRoute({ component: Component, ...rest }) {
   const { currentUser } = useAuth();
-
   return (
     <Route
       {...rest}
@@ -24,6 +24,6 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   );
 }
 
-PrivateRoute.propTypes = {
-  component: PropTypes.object,
-};
+// PrivateRoute.propTypes = {
+//   component: PropTypes.oneOf([PropTypes.func, PropTypes.object]),
+// };
