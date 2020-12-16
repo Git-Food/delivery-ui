@@ -22,9 +22,9 @@ const OrderItem = props => {
               />
             </td>
             <td>
-              {menuItem.name}
+              <h4>{menuItem.name}</h4>
               <br />
-              Quantity :
+              <strong>Quantity: </strong>
               <Button
                 variant="link"
                 onClick={() =>
@@ -42,12 +42,14 @@ const OrderItem = props => {
                 <FontAwesomeIcon icon={faPlusCircle} size="1x" />
               </Button>
               <br />
-              Unit price: {'$' + (menuItem.price / 100).toFixed(2)}
+              <strong>Unit price: </strong>
+              {'$' + (menuItem.price / 100).toFixed(2)}
               <br />
-              Order item total:
+              <strong>Order item total: </strong>
               {` $ ${((menuItem.price / 100) * quantity).toFixed(2)}`}
               <br />
-              Notes: {specialNote}
+              <strong>Notes: </strong>
+              {specialNote}
             </td>
           </tr>
         </tbody>
