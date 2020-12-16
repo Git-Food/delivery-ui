@@ -52,7 +52,9 @@ export const loadShoppingCart = userid => (dispatch, getState) => {
   if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
   return dispatch(
     apiCallBegan({
-      url: `/shoppingcartbyuser/${userid}`,
+      url: '/shoppingcartbyuser',
+      method: 'get',
+      params: { userid },
       onStart: shoppingCartRequested.type,
       onSuccess: shoppingCartReceived.type,
       onError: shoppingCartRequestFailed.type,
