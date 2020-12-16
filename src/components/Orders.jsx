@@ -1,66 +1,53 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { loadOrders } from '../store/orders';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Jumbotron, Container } from 'react-bootstrap';
 
 import { loadRestaurants } from '../store/restaurants';
+import { loadOrders } from '../store/orders';
 import Order from './Order';
+import { useAuth } from '../store/AuthContext';
 
-class Orders extends Component {
-  constructor(props) {
-    super(props);
-    this.findMatchingRestaurant = this.findMatchingRestaurant.bind(this);
-  }
+export default function Orders() {
+  const dispatch = useDispatch();
+  const { currentUser } = useAuth();
 
-  componentDidMount() {
-    this.props.loadRestaurants();
-    this.props.loadOrders();
-  }
+  useEffect(() => {
+    dispatch(loadRestaurants());
+    dispatch(loadOrders(currentUser.uid));
+  }, []);
 
-  findMatchingRestaurant(order) {
-    const matchingRestaurant = this.props.restaurants.find(
+  const orders = useSelector(state => state.entities.orders.list);
+  const restaurants = useSelector(state => state.entities.restaurants.list);
+
+  const findMatchingRestaurant = order => {
+    const matchingRestaurant = restaurants.find(
       restaurant => restaurant.id === order.businessId
     );
     return matchingRestaurant;
-  }
-
-  render() {
-    const orders = this.props.orders;
-    const restaurants = this.props.restaurants;
-    return (
-      <>
-        <h1>Placeholder for OrderHistory View</h1>
-        {restaurants.length && orders.length ? (
-          orders.map(order => (
-            <Order
-              key={order.id}
-              order={order}
-              matchingRestaurant={this.findMatchingRestaurant(order)}
-            />
-          ))
-        ) : (
-          <Jumbotron fluid>
-            <Container className="text-center">
-              <h2>No Past Orders</h2>
-              <p>Are you never hungry?</p>
-            </Container>
-          </Jumbotron>
-        )}
-      </>
-    );
-  }
+  };
+  return (
+    <>
+      <h1>Placeholder for OrderHistory View</h1>
+      {restaurants.length && orders.length ? (
+        orders.map(order => (
+          <Order
+            key={order.id}
+            order={order}
+            matchingRestaurant={findMatchingRestaurant(order)}
+          />
+        ))
+      ) : (
+        <Jumbotron fluid>
+          <Container className="text-center">
+            <h2>No Past Orders</h2>
+            <p>Are you never hungry?</p>
+          </Container>
+        </Jumbotron>
+      )}
+    </>
+  );
 }
-
-const mapStateToProps = state => ({
-  orders: state.entities.orders.list,
-  restaurants: state.entities.restaurants.list,
-});
-
-const mapDispatchToProps = dispatch => ({
-  loadOrders: () => dispatch(loadOrders()),
-  loadRestaurants: () => dispatch(loadRestaurants()),
-});
 
 Orders.propTypes = {
   orders: PropTypes.array,
@@ -68,5 +55,3 @@ Orders.propTypes = {
   restaurants: PropTypes.array,
   loadRestaurants: PropTypes.func,
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Orders);
