@@ -42,8 +42,6 @@ class ShoppingCart extends Component {
     if (user) {
       this.props.loadShoppingCart(user.uid);
     }
-    console.log(this.props.shoppingCart.items);
-    console.log(user);
   }
 
   showModal() {
@@ -127,7 +125,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadShoppingCart: () => dispatch(loadShoppingCart()),
+  loadShoppingCart: userId => dispatch(loadShoppingCart(userId)),
   incrementOrderItem: (orderItem, userId) =>
     dispatch(incrementOrderItem(orderItem, userId)),
   decrementOrderItem: (orderItem, userId) =>
