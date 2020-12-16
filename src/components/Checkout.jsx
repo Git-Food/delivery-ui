@@ -12,12 +12,16 @@ import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function Checkout() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadShoppingCart());
-  }, []);
-
   const shoppingCart = useSelector(state => state.entities.shoppingCart);
   const { currentUser } = useAuth();
+
+  useEffect(() => {
+    dispatch(loadShoppingCart(currentUser.uid));
+  }, []);
+
+  const placeOrder = () => {
+    dispatch(checkout(currentUser.uid));
+  };
 
   return (
     <>
@@ -99,7 +103,7 @@ export default function Checkout() {
                 variant="success"
                 disabled={shoppingCart.empty}
                 // TODO (pcg): replace user id
-                onClick={() => dispatch(checkout(currentUser.uid))}
+                onClick={placeOrder}
                 href="/orders">
                 Place Order
               </Button>
