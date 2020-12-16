@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import {
   loadShoppingCart,
   incrementOrderItem,
   decrementOrderItem,
 } from '../store/shoppingCart';
-import { connect } from 'react-redux';
 import OrderItem from './OrderItem';
+import { useAuth } from '../store/AuthContext';
 
 import {
   NavItem,
@@ -51,6 +53,7 @@ class ShoppingCart extends Component {
 
   render() {
     const { showing } = this.state;
+    const { currentUser } = useAuth;
     return (
       <React.Fragment>
         <NavItem onClick={this.showModal}>
@@ -75,7 +78,7 @@ class ShoppingCart extends Component {
                   orderItem={value}
                   onIncrement={this.props.incrementOrderItem}
                   onDecrement={this.props.decrementOrderItem}
-                  userid={'5fd00ac53e79e6ef143eab21'}
+                  // userid={currentUser.id}
                 />
               </Row>
             ))}

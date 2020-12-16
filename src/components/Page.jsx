@@ -1,8 +1,18 @@
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import {
+  Container,
+  Navbar,
+  Nav,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import ShoppingCart from './ShoppingCart.jsx';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+import ShoppingCart from './ShoppingCart.jsx';
 import Contents from './Contents.jsx';
 
 const NavBar = () => {
@@ -25,8 +35,23 @@ const NavBar = () => {
         <Nav className="ml-auto">
           <ShoppingCart />
         </Nav>
+        <Nav className="ml-5">
+          <Link to="/profile">
+            <Profile />
+          </Link>
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
+  );
+};
+
+const Profile = () => {
+  return (
+    <OverlayTrigger
+      placement="left"
+      overlay={<Tooltip id="profile">Profile</Tooltip>}>
+      <FontAwesomeIcon icon={faUser} style={{ color: 'black' }} size="2x" />
+    </OverlayTrigger>
   );
 };
 

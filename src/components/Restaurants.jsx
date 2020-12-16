@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Form, FormControl } from 'react-bootstrap';
-
-import { loadRestaurants } from '../store/restaurants';
+import { Form, FormControl, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+import { loadRestaurants } from '../store/restaurants';
 import Restaurant from './Restaurant';
 
 class Restaurants extends Component {

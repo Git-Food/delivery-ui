@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { loadOrders } from '../store/orders';
 import { connect } from 'react-redux';
 import { Jumbotron, Container } from 'react-bootstrap';
+
 import { loadRestaurants } from '../store/restaurants';
 import Order from './Order';
 
