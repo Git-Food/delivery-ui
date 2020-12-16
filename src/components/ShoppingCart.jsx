@@ -7,9 +7,9 @@ import {
   loadShoppingCart,
   incrementOrderItem,
   decrementOrderItem,
+  resetShoppingCart,
 } from '../store/shoppingCart';
 import OrderItem from './OrderItem';
-import AuthContext from '../store/AuthContext';
 
 import {
   NavItem,
@@ -27,7 +27,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 class ShoppingCart extends Component {
-  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -38,9 +37,20 @@ class ShoppingCart extends Component {
   }
 
   componentDidMount() {
-    const user = this.context.currentUser;
-    if (user) {
-      this.props.loadShoppingCart(user.uid);
+    if (this.props.user) {
+      this.props.loadShoppingCart(this.props.user.uid);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    // User log in (no user prevoiusly & now user exists)
+    if (prevProps.user === null && this.props.user !== null) {
+      this.props.loadShoppingCart(this.props.user.uid);
+    }
+
+    // User log out (user exists previousy & now no user)
+    if (prevProps.user !== null && this.props.user === null) {
+      this.props.resetShoppingCart();
     }
   }
 
@@ -60,7 +70,6 @@ class ShoppingCart extends Component {
 
   render() {
     const { showing } = this.state;
-    const user = this.context.currentUser;
     return (
       <React.Fragment>
         <NavItem onClick={this.showModal}>
@@ -76,7 +85,7 @@ class ShoppingCart extends Component {
             <Modal.Title>Shopping Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {user && this.props.shoppingCart.quantity ? (
+            {this.props.user && this.props.shoppingCart.quantity ? (
               Object.entries(this.props.shoppingCart.items).map(
                 ([k, value]) => (
                   <Row key={k + '1'}>
@@ -85,7 +94,7 @@ class ShoppingCart extends Component {
                       orderItem={value}
                       onIncrement={this.props.incrementOrderItem}
                       onDecrement={this.props.decrementOrderItem}
-                      userid={user.uid}
+                      userid={this.props.user.uid}
                     />
                   </Row>
                 )
@@ -130,6 +139,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(incrementOrderItem(orderItem, userId)),
   decrementOrderItem: (orderItem, userId) =>
     dispatch(decrementOrderItem(orderItem, userId)),
+  resetShoppingCart: () => dispatch(resetShoppingCart()),
 });
 
 ShoppingCart.propTypes = {
@@ -137,6 +147,8 @@ ShoppingCart.propTypes = {
   loadShoppingCart: PropTypes.func,
   incrementOrderItem: PropTypes.func,
   decrementOrderItem: PropTypes.func,
+  resetShoppingCart: PropTypes.func,
+  user: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
