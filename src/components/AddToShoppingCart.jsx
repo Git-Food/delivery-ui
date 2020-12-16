@@ -55,11 +55,9 @@ class AddToShoppingCart extends Component {
     this.setState({ promptUser: false });
   }
 
-  // TODO (pcg): take userid from store, is hardcoded for now
   addItem() {
     const user = this.context.currentUser;
     this.hideModal();
-    console.log(this.state.specialnote);
     this.props.addOrderItem(
       this.props.menuItem,
       this.state.specialnote,
