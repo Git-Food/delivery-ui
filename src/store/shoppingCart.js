@@ -51,6 +51,9 @@ const {
 
 export default slice.reducer;
 
+// Function resets the shopping cart state to empty
+// Needed for proper logout behavior to remove contents
+// of cart.
 export const resetShoppingCart = () => dispatch => {
   return dispatch({ type: shoppingCartReset.type });
 };
