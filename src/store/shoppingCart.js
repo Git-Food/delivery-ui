@@ -13,7 +13,7 @@ const slice = createSlice({
     price: 0,
     loading: false,
     lastFetch: null,
-    empty: false,
+    empty: true,
   },
   reducers: {
     shoppingCartReceived: (shoppingCart, action) => {
@@ -47,15 +47,12 @@ const {
 
 export default slice.reducer;
 
-// TODO: (pcg) replace shoppingCart id with user id
-const url = '/shoppingcart/5fd00a8670007d571d962dbd';
-
-export const loadShoppingCart = () => (dispatch, getState) => {
+export const loadShoppingCart = userid => (dispatch, getState) => {
   const { lastFetch } = getState().entities.shoppingCart;
   if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
   return dispatch(
     apiCallBegan({
-      url,
+      url: `/shoppingcartbyuser/${userid}`,
       onStart: shoppingCartRequested.type,
       onSuccess: shoppingCartReceived.type,
       onError: shoppingCartRequestFailed.type,
