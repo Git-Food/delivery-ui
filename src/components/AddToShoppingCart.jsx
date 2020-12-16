@@ -23,7 +23,7 @@ class AddToShoppingCart extends Component {
       specialnote: '',
       redirect: false,
     };
-    this.showModalOrSignUp = this.showModalOrSignUp.bind(this);
+    this.showModalOrLogIn = this.showModalOrLogIn.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
@@ -45,7 +45,7 @@ class AddToShoppingCart extends Component {
     this.setState({ quantity: quantity > 1 ? quantity - 1 : 1 });
   }
 
-  showModalOrSignUp() {
+  showModalOrLogIn() {
     const user = this.context.currentUser;
     user ? this.setState({ showing: true }) : this.setState({ redirect: true });
   }
@@ -105,14 +105,14 @@ class AddToShoppingCart extends Component {
     const restaurantName = this.props.restaurantName;
 
     if (this.state.redirect) {
-      return <Redirect to="/signup" />;
+      return <Redirect to="/login" />;
     }
 
     return (
       <>
         {promptUser ? (
           <React.Fragment>
-            <Button onClick={this.showModalOrSignUp}>
+            <Button onClick={this.showModalOrLogIn}>
               Add to shopping cart
             </Button>
             <Modal keyboard show={showing} onHide={this.hideModal}>
@@ -138,7 +138,7 @@ class AddToShoppingCart extends Component {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Button onClick={this.showModalOrSignUp}>
+            <Button onClick={this.showModalOrLogIn}>
               Add to shopping cart
             </Button>
             <Modal keyboard show={showing} onHide={this.hideModal}>
