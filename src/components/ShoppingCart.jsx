@@ -42,6 +42,8 @@ class ShoppingCart extends Component {
     if (user) {
       this.props.loadShoppingCart(user.uid);
     }
+    console.log(this.props.shoppingCart.items);
+    console.log(user);
   }
 
   showModal() {
@@ -76,7 +78,7 @@ class ShoppingCart extends Component {
             <Modal.Title>Shopping Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {this.props.shoppingCart.quantity ? (
+            {user && this.props.shoppingCart.quantity ? (
               Object.entries(this.props.shoppingCart.items).map(
                 ([k, value]) => (
                   <Row key={k + '1'}>
