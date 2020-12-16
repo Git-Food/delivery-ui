@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -31,6 +30,7 @@ class AddToShoppingCart extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.findBusinessId = this.findBusinessId.bind(this);
     this.createNewOrder = this.createNewOrder.bind(this);
+    this.onSpecialNoteChange = this.onSpecialNoteChange.bind(this);
   }
 
   componentDidMount() {}
@@ -59,6 +59,7 @@ class AddToShoppingCart extends Component {
   addItem() {
     const user = this.context.currentUser;
     this.hideModal();
+    console.log(this.state.specialnote);
     this.props.addOrderItem(
       this.props.menuItem,
       this.state.specialnote,
@@ -77,9 +78,11 @@ class AddToShoppingCart extends Component {
     return Object.entries(this.props.shoppingCart.items)[0][1].businessId;
   }
 
+  onSpecialNoteChange(event) {
+    this.setState({ specialnote: event.target.value });
+  }
+
   handleSubmit() {
-    const form = document.forms.menuItemAdd;
-    this.setState({ specialnote: form.specialnote.value });
     let currentBusinessId = this.findBusinessId();
     if (
       currentBusinessId !== null &&
@@ -164,7 +167,11 @@ class AddToShoppingCart extends Component {
                 <Form name="menuItemAdd">
                   <Form.Group controlId="specialnote">
                     <Form.Label>Notes:</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      onChange={this.onSpecialNoteChange}
+                    />
                   </Form.Group>
                 </Form>
               </Modal.Body>
