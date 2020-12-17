@@ -44,17 +44,14 @@ const {
 
 export default slice.reducer;
 
-// TO DO (shh) : change to pass in userID as needed
-
 export const loadOrders = userId => (dispatch, getState) => {
   const { lastFetch } = getState().entities.orders;
-  if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
-  // timegao: Replace '5fd00ac53e79e6ef143eab21' with userId once it's provided
-  const url = '/orderhistory?userId=' + '5fd00ac53e79e6ef143eab21';
-
+  if (moment().diff(moment(lastFetch), 'minutes') < 1) return;
+  const url = '/orderhistory';
   return dispatch(
     apiCallBegan({
       url,
+      params: { userId },
       onStart: ordersRequested.type,
       onSuccess: ordersReceived.type,
       onError: ordersRequestFailed.type,

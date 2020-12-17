@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, Form, FormGroup, Button, Col, Card } from 'react-bootstrap';
 import { loadShoppingCart, checkout } from '../store/shoppingCart';
 import { useAuth } from '../store/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
@@ -12,12 +13,18 @@ import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function Checkout() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadShoppingCart());
-  }, []);
-
   const shoppingCart = useSelector(state => state.entities.shoppingCart);
   const { currentUser } = useAuth();
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(loadShoppingCart(currentUser.uid));
+  }, []);
+
+  async function placeOrder() {
+    await dispatch(checkout(currentUser.uid));
+    history.push('/orders');
+  }
 
   return (
     <>
@@ -99,8 +106,7 @@ export default function Checkout() {
                 variant="success"
                 disabled={shoppingCart.empty}
                 // TODO (pcg): replace user id
-                onClick={() => dispatch(checkout(currentUser.uid))}
-                href="/orders">
+                onClick={placeOrder}>
                 Place Order
               </Button>
             </td>
