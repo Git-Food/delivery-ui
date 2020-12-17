@@ -26,10 +26,12 @@ const NavBar = () => {
           </LinkContainer>
         </Nav>
         <Nav className="ml-auto">
-          <ShoppingCart user={currentUser} />
-        </Nav>
-        <Nav className="ml-5">
-          <Profile />
+          <Nav.Link style={{ color: 'black' }}>
+            <ShoppingCart className="mx-3" user={currentUser} />
+          </Nav.Link>
+          <Nav.Link className="mx-3" style={{ color: 'black' }}>
+            <Profile />
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
