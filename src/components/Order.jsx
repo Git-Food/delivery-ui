@@ -27,9 +27,7 @@ const Order = props => {
         <Row>
           <Col>
             <Card.Img
-              src={`https://picsum.photos/id/${Math.floor(
-                Math.random() * 99
-              )}/200`}
+              src={`https://picsum.photos/id/488/200`}
               style={{ maxWidth: '200px', minWidth: '200px' }}
             />
           </Col>

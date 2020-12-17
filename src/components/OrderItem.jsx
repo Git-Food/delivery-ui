@@ -14,12 +14,7 @@ const OrderItem = props => {
         <tbody>
           <tr>
             <td>
-              <Image
-                src={`https://picsum.photos/id/${Math.floor(
-                  Math.random() * 99
-                )}/200`}
-                rounded
-              />
+              <Image src={`https://picsum.photos/id/488/200`} rounded />
             </td>
             <td>
               <h4>{menuItem.name}</h4>

@@ -9,11 +9,8 @@ const MenuItem = props => {
   const { name, description, price } = props.item;
   return (
     <div>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img
-          variant="top"
-          src={`https://picsum.photos/id/${Math.floor(Math.random() * 99)}/200`}
-        />
+      <Card className="m-3" style={{ width: '18rem' }}>
+        <Card.Img variant="top" src={`https://picsum.photos/id/488/200`} />
         <Card.Body>
           <Card.Title>
             {name} - {'$' + (price / 100).toFixed(2)}

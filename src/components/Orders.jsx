@@ -27,8 +27,8 @@ export default function Orders() {
     return matchingRestaurant;
   };
   return (
-    <>
-      <h1>Placeholder for OrderHistory View</h1>
+    <Container>
+      <h1 className="mt-3 mb-4 text-center">Past Orders</h1>
       {restaurants.length && orders.length ? (
         orders.map(order => (
           <Order
@@ -45,7 +45,7 @@ export default function Orders() {
           </Container>
         </Jumbotron>
       )}
-    </>
+    </Container>
   );
 }
 
