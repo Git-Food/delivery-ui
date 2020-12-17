@@ -9,7 +9,7 @@ To find the complimentary back-end API code base, its deployment instructions, a
 
 https://github.com/Git-Food/delivery
 
-Please note that our application was bootsrapped using `create-react-app`. As such, we have supplied the default `create-react-app` readme at the bottom for reference.
+Please note that our application was bootstrapped using `create-react-app`. As such, we have supplied the default `create-react-app` readme at the bottom for reference.
 
 ## Relevant Project Documentation & Presentation
 
@@ -49,7 +49,7 @@ All relevant Project documentation can be viewed in our sharepoint [Project Docu
     REACT_APP_FIREBASE_APP_ID=<appId>
     ```
 
-    These variables need to also be configured within Heroku to ensure the application connects firebase correctly when depoyed. These `Config Vars` may be defined either using the Heroku CLI or directly on the Heroku website under settings.
+    These variables need to also be configured within Heroku to ensure the application correctly connects to firebase when depoyed. These `Config Vars` may be defined either using the Heroku CLI or directly on the Heroku website under settings.
 
 6) Follow the necessary Heroku instructions mentioned in (2) to sucessfully deploy the application.
 
@@ -64,7 +64,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-#### `yarn start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -72,12 +72,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-#### `yarn test`
+#### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-#### `yarn build`
+#### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -87,7 +87,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-#### `yarn eject`
+#### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -123,6 +123,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-#### `yarn build` fails to minify
+#### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
