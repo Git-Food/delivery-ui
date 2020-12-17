@@ -27,7 +27,7 @@ export default function ForgotPassword() {
   return (
     <>
       <Container className="d-flex align-items-center justify-content-center mt-4">
-        <div className="w-600" style={{ maxWidth: 1200 }}>
+        <div className="w-100" style={{ maxWidth: 400 }}>
           <h2 className="text-center mb-4">Password Reset</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
