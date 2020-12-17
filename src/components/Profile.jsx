@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   Alert,
   Button,
+  Container,
+  Jumbotron,
   Modal,
   NavItem,
   OverlayTrigger,
@@ -13,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { useAuth } from '../store/AuthContext';
+import Login from './Login';
 
 export default function UpdateProfile() {
   const { currentUser, logout } = useAuth();
@@ -63,8 +66,27 @@ export default function UpdateProfile() {
           </div>
         </Modal>
       ) : (
-        // React seems to need something to be rendered if condition is false
-        <Modal></Modal>
+        <Modal keyboard show={showing} onHide={() => setShowing(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Not logged in</Modal.Title>
+          </Modal.Header>
+          <Jumbotron fluid>
+            <Container className="text-center">
+              <div className="w-100 text-center mt-2">
+                Already have an account?{' '}
+                <Link to="/login" onClick={() => setShowing(false)}>
+                  Log In
+                </Link>
+                <div className="w-100 text-center mt-2">
+                  Need an account?{' '}
+                  <Link to="/signup" onClick={() => setShowing(false)}>
+                    Sign Up
+                  </Link>
+                </div>
+              </div>
+            </Container>
+          </Jumbotron>
+        </Modal>
       )}
     </>
   );
