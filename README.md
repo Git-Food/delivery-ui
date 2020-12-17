@@ -15,7 +15,7 @@ Please note that our application was bootstrapped using `create-react-app`. As s
 
 **Presentation:** Video linked [here](www.youtube.com)
 
-All relevant Project documentation can be viewed in our sharepoint [Project Documentation Folder](https://northeastern.sharepoint.com/:f:/s/Fit/ElOVh2COQF1HiinugLhexDsBWroZ5DJ4_e9nemJrSCzguw?e=gizhMW). The Project Documentation Folder includes the following documents:
+All relevant Project documentation can be viewed in our sharepoint [Project Documentation Folder](https://northeastern.sharepoint.com/:f:/s/Fit/ElOVh2COQF1HiinugLhexDsBWroZ5DJ4_e9nemJrSCzguw?e=4v71vy). The Project Documentation Folder includes the following documents:
 * Regular Meeting Notes
 * Design Document
 * UML Activity Diagram
