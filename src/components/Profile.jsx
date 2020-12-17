@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { useAuth } from '../store/AuthContext';
-import Login from './Login';
 
 export default function UpdateProfile() {
   const { currentUser, logout } = useAuth();
@@ -53,12 +52,12 @@ export default function UpdateProfile() {
           <div className="w-200 text-center mt-2">
             <strong>Email: {currentUser.email}</strong>
           </div>
-          <div className="w-600" style={{ maxWidth: 1200 }}>
+          <div className="w-100">
             <Link to="/update-profile" onClick={() => setShowing(false)}>
-              <div className="text-center mt-4 mb-4">Update Profile</div>
+              <div className="text-center mt-2 mb-2">Update Profile</div>
             </Link>
             {error && <Alert variant="danger">{error}</Alert>}
-            <div className="w-100 text-center mt-2 mb-2">
+            <div className="w-100 text-center mt-3 mb-2">
               <Button variant="primary" onClick={handleLogout}>
                 Log Out
               </Button>

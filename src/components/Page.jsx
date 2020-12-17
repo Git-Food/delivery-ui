@@ -21,13 +21,10 @@ const NavBar = () => {
           <LinkContainer to="/orders">
             <Nav.Link>Orders</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/favorites">
-            <Nav.Link>Favorites</Nav.Link>
-          </LinkContainer>
         </Nav>
         <Nav className="ml-auto">
-          <Nav.Link style={{ color: 'black' }}>
-            <ShoppingCart className="mx-3" user={currentUser} />
+          <Nav.Link className="mx-3" style={{ color: 'black' }}>
+            <ShoppingCart user={currentUser} />
           </Nav.Link>
           <Nav.Link className="mx-3" style={{ color: 'black' }}>
             <Profile />

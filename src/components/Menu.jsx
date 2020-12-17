@@ -23,8 +23,8 @@ const Menu = ({ match }) => {
 
   // Optionally renders menuItems if it has any items, default is []
   return (
-    <>
-      <h2>{menu.name}</h2>
+    <Container>
+      <h2 className="text-center mt-3 mb-4">{menu.name}</h2>
       {menu.menuItems.length ? (
         <Row>
           {menu.menuItems.map(item => (
@@ -39,7 +39,7 @@ const Menu = ({ match }) => {
           </Container>
         </Jumbotron>
       )}
-    </>
+    </Container>
   );
 };
 

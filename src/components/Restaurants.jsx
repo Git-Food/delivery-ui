@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, FormControl, Row } from 'react-bootstrap';
+import { Form, FormControl, Row, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { loadRestaurants } from '../store/restaurants';
@@ -29,22 +29,24 @@ class Restaurants extends Component {
       return restaurant.name.toLowerCase().includes(searchfield.toLowerCase());
     });
     return (
-      <>
-        <h1>Placeholder for Restaurants View</h1>
-        <Form inline>
-          <FormControl
-            type="search"
-            placeholder="Search Restaurants"
-            className="mb-3 mr-sm-2"
-            onChange={this.onSearchChange}
-          />
-        </Form>
+      <Container className="justify-content-center" fluid>
+        <h1 className="text-center">Restaurants</h1>
+        <div className="justify-content-center">
+          <Form inline>
+            <FormControl
+              type="search"
+              placeholder="Search Restaurants"
+              className="m-3 mr-sm-2 col-8"
+              onChange={this.onSearchChange}
+            />
+          </Form>
+        </div>
         <Row>
           {filteredRestaurants.map(restaurant => (
             <Restaurant key={restaurant.id} restaurant={restaurant} />
           ))}
         </Row>
-      </>
+      </Container>
     );
   }
 }

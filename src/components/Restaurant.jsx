@@ -34,13 +34,8 @@ const Restaurant = props => {
   return (
     <div>
       <Link to={`/menu/${menuId}`}>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img
-            variant="top"
-            src={`https://picsum.photos/id/${Math.floor(
-              Math.random() * 99
-            )}/200`}
-          />
+        <Card className="m-3" style={{ width: '18rem' }}>
+          <Card.Img variant="top" src={`https://picsum.photos/id/163/200`} />
           <Card.Body>
             <Card.Title>{name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">

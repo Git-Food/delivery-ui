@@ -145,12 +145,7 @@ class AddToShoppingCart extends Component {
             <Modal keyboard show={showing} onHide={this.hideModal}>
               <Modal.Header closeButton>
                 <Row>
-                  <Image
-                    src={`https://picsum.photos/id/${Math.floor(
-                      Math.random() * 99
-                    )}/600/200`}
-                    fluid
-                  />
+                  <Image src={`https://picsum.photos/id/488/600/200`} fluid />
                 </Row>
               </Modal.Header>
               <Modal.Body>
