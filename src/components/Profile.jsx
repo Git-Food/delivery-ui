@@ -52,12 +52,12 @@ export default function UpdateProfile() {
           <div className="w-200 text-center mt-2">
             <strong>Email: {currentUser.email}</strong>
           </div>
-          <div className="w-100" style={{ maxWidth: 400 }}>
+          <div className="w-100">
             <Link to="/update-profile" onClick={() => setShowing(false)}>
-              <div className="text-center mt-4 mb-4">Update Profile</div>
+              <div className="text-center mt-2 mb-2">Update Profile</div>
             </Link>
             {error && <Alert variant="danger">{error}</Alert>}
-            <div className="w-100 text-center mt-2 mb-2">
+            <div className="w-100 text-center mt-3 mb-2">
               <Button variant="primary" onClick={handleLogout}>
                 Log Out
               </Button>
