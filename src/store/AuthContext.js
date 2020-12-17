@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 
 const AuthContext = React.createContext();
 
+export const AuthProviderClass = AuthContext.Provider;
+export const AuthConsumerClass = AuthContext.Consumer;
+export default AuthContext;
+
 export function useAuth() {
   return useContext(AuthContext);
 }

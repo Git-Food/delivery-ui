@@ -14,8 +14,10 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import ShoppingCart from './ShoppingCart.jsx';
 import Contents from './Contents.jsx';
+import { useAuth } from '../store/AuthContext';
 
 const NavBar = () => {
+  const { currentUser } = useAuth();
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Navbar.Brand>Git-Food</Navbar.Brand>
@@ -33,7 +35,7 @@ const NavBar = () => {
           </LinkContainer>
         </Nav>
         <Nav className="ml-auto">
-          <ShoppingCart />
+          <ShoppingCart user={currentUser} />
         </Nav>
         <Nav className="ml-5">
           <Link to="/profile">

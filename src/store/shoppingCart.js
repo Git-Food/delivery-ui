@@ -3,19 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 import { apiCallBegan } from './api';
 import moment from 'moment';
 
+const initialState = {
+  id: null,
+  customerId: null,
+  items: {},
+  quantity: 0,
+  price: 0,
+  loading: false,
+  lastFetch: null,
+  empty: true,
+};
+
 const slice = createSlice({
   name: 'shoppingCart',
-  initialState: {
-    id: null,
-    customerId: null,
-    items: {},
-    quantity: 0,
-    price: 0,
-    loading: false,
-    lastFetch: null,
-    empty: false,
-  },
+  initialState,
   reducers: {
+    shoppingCartReset: () => initialState,
     shoppingCartReceived: (shoppingCart, action) => {
       shoppingCart.id = action.payload.id;
       shoppingCart.customerId = action.payload.customerId;
@@ -40,6 +43,7 @@ const slice = createSlice({
 });
 
 const {
+  shoppingCartReset,
   shoppingCartReceived,
   shoppingCartRequested,
   shoppingCartRequestFailed,
@@ -47,15 +51,21 @@ const {
 
 export default slice.reducer;
 
-// TODO: (pcg) replace shoppingCart id with user id
-const url = '/shoppingcart/5fd00a8670007d571d962dbd';
+// Function resets the shopping cart state to empty
+// Needed for proper logout behavior to remove contents
+// of cart.
+export const resetShoppingCart = () => dispatch => {
+  return dispatch({ type: shoppingCartReset.type });
+};
 
-export const loadShoppingCart = () => (dispatch, getState) => {
+export const loadShoppingCart = userid => (dispatch, getState) => {
   const { lastFetch } = getState().entities.shoppingCart;
   if (moment().diff(moment(lastFetch), 'minutes') < 10) return;
   return dispatch(
     apiCallBegan({
-      url,
+      url: '/shoppingcartbyuser',
+      method: 'get',
+      params: { userid },
       onStart: shoppingCartRequested.type,
       onSuccess: shoppingCartReceived.type,
       onError: shoppingCartRequestFailed.type,

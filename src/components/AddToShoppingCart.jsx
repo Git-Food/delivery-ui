@@ -8,8 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { addOrderItem, clearShoppingCart } from '../store/shoppingCart';
+import AuthContext from '../store/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 class AddToShoppingCart extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -17,8 +20,9 @@ class AddToShoppingCart extends Component {
       quantity: 1,
       promptUser: false,
       specialnote: '',
+      redirect: false,
     };
-    this.showModal = this.showModal.bind(this);
+    this.showModalOrLogIn = this.showModalOrLogIn.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
@@ -26,6 +30,7 @@ class AddToShoppingCart extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.findBusinessId = this.findBusinessId.bind(this);
     this.createNewOrder = this.createNewOrder.bind(this);
+    this.onSpecialNoteChange = this.onSpecialNoteChange.bind(this);
   }
 
   componentDidMount() {}
@@ -40,8 +45,9 @@ class AddToShoppingCart extends Component {
     this.setState({ quantity: quantity > 1 ? quantity - 1 : 1 });
   }
 
-  showModal() {
-    this.setState({ showing: true });
+  showModalOrLogIn() {
+    const user = this.context.currentUser;
+    user ? this.setState({ showing: true }) : this.setState({ redirect: true });
   }
 
   hideModal() {
@@ -49,14 +55,14 @@ class AddToShoppingCart extends Component {
     this.setState({ promptUser: false });
   }
 
-  // TODO (pcg): take userid from store, is hardcoded for now
   addItem() {
+    const user = this.context.currentUser;
     this.hideModal();
     this.props.addOrderItem(
       this.props.menuItem,
       this.state.specialnote,
       this.state.quantity,
-      '5fd00ac53e79e6ef143eab21'
+      user.uid
     );
     // clear quantity and notes
     this.setState({ quantity: 1 });
@@ -70,9 +76,11 @@ class AddToShoppingCart extends Component {
     return Object.entries(this.props.shoppingCart.items)[0][1].businessId;
   }
 
+  onSpecialNoteChange(event) {
+    this.setState({ specialnote: event.target.value });
+  }
+
   handleSubmit() {
-    const form = document.forms.menuItemAdd;
-    this.setState({ specialnote: form.specialnote.value });
     let currentBusinessId = this.findBusinessId();
     if (
       currentBusinessId !== null &&
@@ -86,7 +94,8 @@ class AddToShoppingCart extends Component {
 
   // TODO (pcg): take userid from store, is hardcoded for now
   async createNewOrder() {
-    await this.props.clearShoppingCart('5fd00ac53e79e6ef143eab21');
+    const user = this.context.currentUser;
+    await this.props.clearShoppingCart(user.uid);
     this.addItem();
   }
 
@@ -95,11 +104,18 @@ class AddToShoppingCart extends Component {
     const { name, price } = this.props.menuItem;
     const { promptUser } = this.state;
     const restaurantName = this.props.restaurantName;
+
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <>
         {promptUser ? (
           <React.Fragment>
-            <Button onClick={this.showModal}>Add to shopping cart</Button>
+            <Button onClick={this.showModalOrLogIn}>
+              Add to shopping cart
+            </Button>
             <Modal keyboard show={showing} onHide={this.hideModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Start new cart?</Modal.Title>
@@ -123,7 +139,9 @@ class AddToShoppingCart extends Component {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Button onClick={this.showModal}>Add to shopping cart</Button>
+            <Button onClick={this.showModalOrLogIn}>
+              Add to shopping cart
+            </Button>
             <Modal keyboard show={showing} onHide={this.hideModal}>
               <Modal.Header closeButton>
                 <Row>
@@ -147,7 +165,11 @@ class AddToShoppingCart extends Component {
                 <Form name="menuItemAdd">
                   <Form.Group controlId="specialnote">
                     <Form.Label>Notes:</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      onChange={this.onSpecialNoteChange}
+                    />
                   </Form.Group>
                 </Form>
               </Modal.Body>
