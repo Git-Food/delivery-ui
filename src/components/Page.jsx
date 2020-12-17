@@ -1,19 +1,10 @@
 import React from 'react';
-import {
-  Container,
-  Navbar,
-  Nav,
-  OverlayTrigger,
-  Tooltip,
-} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import ShoppingCart from './ShoppingCart.jsx';
 import Contents from './Contents.jsx';
+import Profile from './Profile';
 import { useAuth } from '../store/AuthContext';
 
 const NavBar = () => {
@@ -38,22 +29,10 @@ const NavBar = () => {
           <ShoppingCart user={currentUser} />
         </Nav>
         <Nav className="ml-5">
-          <Link to="/profile">
-            <Profile />
-          </Link>
+          <Profile />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  );
-};
-
-const Profile = () => {
-  return (
-    <OverlayTrigger
-      placement="left"
-      overlay={<Tooltip id="profile">Profile</Tooltip>}>
-      <FontAwesomeIcon icon={faUser} style={{ color: 'black' }} size="2x" />
-    </OverlayTrigger>
   );
 };
 
