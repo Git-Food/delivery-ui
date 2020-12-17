@@ -43,7 +43,7 @@ export default function UpdateProfile() {
   return (
     <>
       <Container className="d-flex align-items-center justify-content-center">
-        <div className="w-600" style={{ maxWidth: 1200 }}>
+        <div className="w-100" style={{ maxWidth: 400 }}>
           <h2 className="text-center mt-4 mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
